@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: marceloverdijk
+      author: madsn
       changes:
         - createTable:
-            tableName: person
+            tableName: user
             columns:
               - column:
                   name: id
@@ -14,25 +14,12 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: first_name
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: last_name
+                  name: email
                   type: varchar(255)
                   constraints:
                     nullable: false
-  - changeSet:
-      id: 2
-      author: marceloverdijk
-      changes:
-        - insert:
-            tableName: person
-            columns:
-              - column:
-                  name: first_name
-                  value: Marcel
-              - column:
-                  name: last_name
-                  value: Overdijk

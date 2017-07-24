@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class UserController {
+class UserController(val userRepo: UserRepository) {
 
-    @GetMapping("/")
-    fun get() = "Hello world"
+    @GetMapping("/users")
+    fun get() = userRepo.findAll()
 }
