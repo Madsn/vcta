@@ -1,8 +1,8 @@
-package hello
+package team
 
 import org.springframework.data.repository.CrudRepository
 
-interface UserRepository : CrudRepository<User, Long> {
+interface TeamRepository : CrudRepository<Team, Long> {
 
-	fun findByName(name: String): Iterable<User>
+	fun findByName(name: String): Iterable<Team>
 }

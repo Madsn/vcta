@@ -1,8 +1,8 @@
-package hello
+package user
 
 import org.springframework.data.repository.CrudRepository
 
-interface CustomerRepository : CrudRepository<Customer, Long> {
+interface UserRepository : CrudRepository<User, Long> {
 
-	fun findByLastName(lastName: String): Iterable<Customer>
+	fun findByName(name: String): Iterable<User>
 }

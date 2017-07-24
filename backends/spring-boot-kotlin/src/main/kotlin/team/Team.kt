@@ -1,4 +1,4 @@
-package hello
+package team
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -8,11 +8,11 @@ import javax.persistence.Id
 @Entity
 class Team(
 		val name: String,
-		val email: String,
+		val captain: User,
 		@Id @GeneratedValue(strategy = GenerationType.AUTO)
 		val id: Long = -1) {
 
 	override fun toString(): String {
-		return "User(id=$id, name='$name', email='$email')"
+		return "Team(id=$id, name='$name', captain='$captain')"
 	}
 }
