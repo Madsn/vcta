@@ -11,6 +11,7 @@ import org.springframework.core.annotation.Order
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 
 @SpringBootApplication
 class VctaApplication {
@@ -42,6 +43,11 @@ class VctaApplication {
                     .and()
                     .csrf()
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                    .and()
+                    .logout().permitAll()
+                    // TODO: Remove below line - use POST requests to logout
+                    .logoutRequestMatcher(AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login?logout")
         }
     }
 }

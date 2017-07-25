@@ -13,6 +13,9 @@ class IndexController : ErrorController {
     @GetMapping("/")
     fun getRoot() = "Hello world"
 
+    @GetMapping("/login")
+    fun getLogin() = "Login page"
+
     @RequestMapping(value = ERROR_PATH)
     fun error(): String = "Oops"
 
