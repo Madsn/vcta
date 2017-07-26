@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Get user info when sending credentials 1`] = `
+Object {
+  "contentType": "application/json;charset=UTF-8",
+  "data": "{\\"name\\":\\"Name1\\",\\"email\\":\\"email1@example.com\\",\\"id\\":1}",
+  "statusCode": 200,
+}
+`;
+
 exports[`Not possible to get user info when not authenticated 1`] = `
 Object {
   "contentType": "text/plain;charset=UTF-8",
