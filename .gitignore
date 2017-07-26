@@ -1,2 +1,3 @@
 .idea/vcs.xml
 backends/spring-boot-kotlin/out/
+**/node_modules/
