@@ -7,6 +7,13 @@
   },
   "author": "madsn",
   "devDependencies": {
+    "babel-jest": "^20.0.3",
+    "babel-preset-es2015": "^6.24.1",
     "jest": "^20.0.4"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/"
+    ]
   }
 }
