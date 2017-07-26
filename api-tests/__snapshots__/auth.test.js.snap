@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Not possible to get user info when not authenticated 1`] = `"Oops"`;
