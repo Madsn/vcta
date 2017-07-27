@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <md-toolbar>
-      <h1 class="md-title">My Title</h1>
-    </md-toolbar>
-
+    <navbar></navbar>
     <div class="main-content">
       <router-view></router-view>
     </div>
@@ -11,8 +8,12 @@
 </template>
 
 <script>
+import navbar from './components/navbar.vue'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    navbar
+  }
 }
 </script>
 
