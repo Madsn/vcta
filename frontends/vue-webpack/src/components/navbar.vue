@@ -1,20 +1,23 @@
 <template>
   <md-toolbar>
-    <md-layout md-flex="25">
-      <h2 class="md-title">VCTA</h2>
+    <md-layout md-align="start" md-hide-small-and-up>
+      <md-button class="md-icon-button">
+        <md-icon>menu</md-icon>
+      </md-button>
+    </md-layout>
+    <md-layout md-align="start">
+      <router-link to="/"><h2 class="md-title">VCTA</h2></router-link>
     </md-layout>
 
-    <md-layout md-flex="50" md-align="center" md-hide-xsmall>
-      <md-column>
-        <md-button class="md-button">
-          Dashboard
-        </md-button>
-      </md-column>
-      <md-column>
-        <md-button class="md-button">
-          Scoreboard
-        </md-button>
-      </md-column>
+    <md-layout md-align="center" md-hide-xsmall>
+      <md-button class="md-button">
+        <router-link to="/dashboard">Dashboard</router-link>
+      </md-button>
+    </md-layout>
+    <md-layout md-align="center" md-hide-xsmall>
+      <md-button class="md-button">
+        <router-link to="/scoreboard">Scoreboard</router-link>
+      </md-button>
     </md-layout>
 
     <md-layout md-align="end">
