@@ -3,25 +3,28 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.css'
+import {
+  Button,
+  Select,
+  Submenu,
+  Menu,
+  MenuItem
+} from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
 
 Vue.config.productionTip = false
-Vue.use(VueMaterial)
-
-Vue.material.registerTheme('default', {
-  primary: 'blue',
-  accent: 'pink',
-  warn: 'deep-orange',
-  background: 'grey'
-})
-
-Vue.material.setCurrentTheme('default')
+Vue.use(Button)
+Vue.use(Select)
+Vue.use(Menu)
+Vue.use(MenuItem)
+Vue.use(Submenu)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {
+    App
+  }
 })

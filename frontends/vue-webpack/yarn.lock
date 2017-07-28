@@ -224,6 +224,10 @@ async-each@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.1.tgz#19d386a1d9edc6e7c1c85d388aedbcc56d33602d"
 
+async-validator@1.6.9:
+  version "1.6.9"
+  resolved "https://registry.yarnpkg.com/async-validator/-/async-validator-1.6.9.tgz#a8309daa8b83421cdbd4628e026d6abb25192d34"
+
 async@1.x, async@^1.4.0:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
@@ -437,6 +441,10 @@ babel-helper-replace-supers@^6.24.1:
     babel-traverse "^6.24.1"
     babel-types "^6.24.1"
 
+babel-helper-vue-jsx-merge-props@^2.0.0, babel-helper-vue-jsx-merge-props@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-2.0.2.tgz#aceb1c373588279e2755ea1cfd35c22394fd33f8"
+
 babel-helpers@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-helpers/-/babel-helpers-6.24.1.tgz#3471de9caec388e5c850e597e58a26ddf37602b2"
@@ -463,6 +471,10 @@ babel-plugin-check-es2015-constants@^6.22.0:
   resolved "https://registry.yarnpkg.com/babel-plugin-check-es2015-constants/-/babel-plugin-check-es2015-constants-6.22.0.tgz#35157b101426fd2ffd3da3f75c7d1e91835bbf8a"
   dependencies:
     babel-runtime "^6.22.0"
+
+babel-plugin-component@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-component/-/babel-plugin-component-0.10.0.tgz#55d6dbc0f35d7a381931b16ff1ee34ef93085add"
 
 babel-plugin-istanbul@^4.1.1:
   version "4.1.4"
@@ -495,6 +507,10 @@ babel-plugin-syntax-dynamic-import@^6.18.0:
 babel-plugin-syntax-exponentiation-operator@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-exponentiation-operator/-/babel-plugin-syntax-exponentiation-operator-6.13.0.tgz#9ee7e8337290da95288201a6a57f4170317830de"
+
+babel-plugin-syntax-jsx@^6.18.0:
+  version "6.18.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
 
 babel-plugin-syntax-object-rest-spread@^6.8.0:
   version "6.13.0"
@@ -715,7 +731,7 @@ babel-plugin-transform-exponentiation-operator@^6.22.0, babel-plugin-transform-e
     babel-plugin-syntax-exponentiation-operator "^6.8.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-object-rest-spread@^6.22.0:
+babel-plugin-transform-object-rest-spread@^6.22.0, babel-plugin-transform-object-rest-spread@^6.23.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-object-rest-spread/-/babel-plugin-transform-object-rest-spread-6.23.0.tgz#875d6bc9be761c58a2ae3feee5dc4895d8c7f921"
   dependencies:
@@ -728,7 +744,7 @@ babel-plugin-transform-regenerator@^6.22.0:
   dependencies:
     regenerator-transform "0.9.11"
 
-babel-plugin-transform-runtime@^6.22.0:
+babel-plugin-transform-runtime@^6.15.0, babel-plugin-transform-runtime@^6.22.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-runtime/-/babel-plugin-transform-runtime-6.23.0.tgz#88490d446502ea9b8e7efb0fe09ec4d99479b1ee"
   dependencies:
@@ -741,7 +757,13 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-preset-env@^1.3.2:
+babel-plugin-transform-vue-jsx@^3.1.2:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-vue-jsx/-/babel-plugin-transform-vue-jsx-3.5.0.tgz#6b1ad29351ad753919403675f0bf8b2a43e17671"
+  dependencies:
+    esutils "^2.0.2"
+
+babel-preset-env@^1.2.1, babel-preset-env@^1.3.2:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.6.0.tgz#2de1c782a780a0a5d605d199c957596da43c44e4"
   dependencies:
@@ -795,6 +817,25 @@ babel-preset-stage-3@^6.24.1:
     babel-plugin-transform-exponentiation-operator "^6.24.1"
     babel-plugin-transform-object-rest-spread "^6.22.0"
 
+babel-preset-vue-app@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-vue-app/-/babel-preset-vue-app-1.2.0.tgz#5ddfb7920020123a2482b12c6b36bdef9e3fb0ad"
+  dependencies:
+    babel-plugin-syntax-dynamic-import "^6.18.0"
+    babel-plugin-transform-object-rest-spread "^6.23.0"
+    babel-plugin-transform-runtime "^6.15.0"
+    babel-preset-env "^1.2.1"
+    babel-preset-vue "^0.1.0"
+    babel-runtime "^6.20.0"
+
+babel-preset-vue@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-vue/-/babel-preset-vue-0.1.0.tgz#adb84ceab3873bd72606fdd3f7047640f032301f"
+  dependencies:
+    babel-helper-vue-jsx-merge-props "^2.0.2"
+    babel-plugin-syntax-jsx "^6.18.0"
+    babel-plugin-transform-vue-jsx "^3.1.2"
+
 babel-register@^6.22.0, babel-register@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-register/-/babel-register-6.24.1.tgz#7e10e13a2f71065bdfad5a1787ba45bca6ded75f"
@@ -807,7 +848,7 @@ babel-register@^6.22.0, babel-register@^6.24.1:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
-babel-runtime@^6.18.0, babel-runtime@^6.22.0:
+babel-runtime@^6.18.0, babel-runtime@^6.20.0, babel-runtime@^6.22.0:
   version "6.25.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.25.0.tgz#33b98eaa5d482bb01a8d1aa6b437ad2b01aec41c"
   dependencies:
@@ -1714,6 +1755,10 @@ deep-is@~0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
 
+deepmerge@^1.2.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-1.5.0.tgz#00bc5b88fd23b8130f9f5049071c3420e07a5465"
+
 defined@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"
@@ -1898,6 +1943,15 @@ ejs@^2.5.6:
 electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.16:
   version "1.3.16"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.16.tgz#d0e026735754770901ae301a21664cba45d92f7d"
+
+element-ui@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/element-ui/-/element-ui-1.4.1.tgz#f4471cadb43dc779c3098dc73634aea94d03f255"
+  dependencies:
+    async-validator "1.6.9"
+    babel-helper-vue-jsx-merge-props "^2.0.0"
+    deepmerge "^1.2.0"
+    throttle-debounce "^1.0.1"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -5608,6 +5662,10 @@ text-table@^0.2.0, text-table@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
+throttle-debounce@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-1.0.1.tgz#dad0fe130f9daf3719fdea33dc36a8e6ba7f30b5"
+
 throttleit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/throttleit/-/throttleit-1.0.0.tgz#9e785836daf46743145a5984b6268d828528ac6c"
@@ -5876,12 +5934,6 @@ vue-loader@^12.1.0:
     vue-hot-reload-api "^2.1.0"
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.2.2"
-
-vue-material@^0.7.4:
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/vue-material/-/vue-material-0.7.4.tgz#51ac621a3fceeba3ea49ffe0858c0b45785efe10"
-  dependencies:
-    vue "^2.3.3"
 
 vue-router@^2.6.0:
   version "2.7.0"
