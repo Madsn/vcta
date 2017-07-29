@@ -3,10 +3,11 @@
     <h3>VCTA</h3>
     <p>First off, what is VCTA?
       <span>
-      "<b>V</b>i
-      <b>C</b>ykler
-      <b>T</b>il
-      <b>A</b>rbejde" is a
+        "
+        <b>V</b>i
+        <b>C</b>ykler
+        <b>T</b>il
+        <b>A</b>rbejde" is a
       </span>
       <em>bike-to-work</em>
       month-long competition running in May every year, with teams and individuals competing to see who rides their bikes to work most often and the furthest distance. The employees club has chosen to do our own VCTA rather than take part in the
