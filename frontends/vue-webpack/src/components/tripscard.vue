@@ -11,7 +11,7 @@
               <div class="form-group row">
                 <label for="tripDate" class="col-sm-2 col-form-label">Date</label>
                 <div class="col-sm-10">
-                  <datepicker :disabled="disabled" date="2017-05-01" inline bootstrapStyling monday-first required>
+                  <datepicker :disabled="disabled" :value="date()" inline bootstrapStyling monday-first required>
                     test
                   </datepicker>
                 </div>
@@ -50,8 +50,13 @@ export default {
     return {
       disabled: {
         to: new Date(2017, 4, 1), // Disable all dates up to specific date
-        from: new Date(2017, 5, 1), // Disable all dates after specific date
+        from: new Date(2017, 4, 31), // Disable all dates after specific date
         days: [6, 0] // Disable Saturday's and Sunday's
+      },
+      date: function() {
+        var now = new Date()
+        var d = new Date(now.getFullYear(), 4, now.getDate())
+        return d
       }
     }
   },
