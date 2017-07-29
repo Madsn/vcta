@@ -11,7 +11,9 @@
               <div class="form-group row">
                 <label for="tripDate" class="col-sm-2 col-form-label">Date</label>
                 <div class="col-sm-10">
-                  datepicker
+                  <datepicker :disabled="disabled" date="2017-05-01" inline bootstrapStyling monday-first required>
+                    test
+                  </datepicker>
                 </div>
               </div>
               <div class="form-group row">
@@ -40,14 +42,25 @@
 
 <script>
 import tripstable from './tripstable.vue'
+import Datepicker from 'vuejs-datepicker'
 
 export default {
   name: 'tripscard',
+  data() {
+    return {
+      disabled: {
+        to: new Date(2017, 4, 1), // Disable all dates up to specific date
+        from: new Date(2017, 5, 1), // Disable all dates after specific date
+        days: [6, 0] // Disable Saturday's and Sunday's
+      }
+    }
+  },
   props: [
     'trips'
   ],
   components: {
-    tripstable
+    tripstable,
+    Datepicker
   }
 }
 </script>
