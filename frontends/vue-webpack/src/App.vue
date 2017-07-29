@@ -20,6 +20,7 @@ export default {
 <style>
 .content-container {
   padding-top: 16px;
+  padding-bottom: 160px;
 }
 @media (min-width: 768px) {
   .container {
