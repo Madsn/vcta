@@ -1,10 +1,6 @@
 <template>
-<div>
-  <div class="card dashboard-card">
-    <div class="card-header">
-      {{header}}
-    </div>
-    <div class="card-block">
+  <div>
+    <b-card :header="header">
       <table class="table table-hover">
         <thead>
         </thead>
@@ -31,8 +27,7 @@
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
+    </b-card>
   </div>
 </template>
 

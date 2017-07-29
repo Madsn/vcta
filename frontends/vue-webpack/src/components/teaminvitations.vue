@@ -1,12 +1,7 @@
 <template>
-  <div class="card dashboard-card">
-    <div class="card-header">
-      Team invitations
-    </div>
-    <div class="card-block">
+  <b-card header="Team invitations">
       <p>You currently have no team invitations</p>
-    </div>
-  </div>
+  </b-card>
 </template>
 
 <script>

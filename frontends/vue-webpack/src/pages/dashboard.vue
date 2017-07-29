@@ -72,6 +72,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less">
+.card {
+  margin-bottom: 16px;
+}
 </style>
