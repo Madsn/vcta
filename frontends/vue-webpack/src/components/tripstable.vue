@@ -16,7 +16,7 @@
           <td>{{trip.date}}</td>
           <td>{{trip.distance}}</td>
           <td>
-            <icon name="trash" aria-label="Delete trip" title="Delete" class="clickable"></icon>
+            <icon name="trash" @click.native="deleteTrip(trip.id)" aria-label="Delete trip" title="Delete" class="clickable"></icon>
           </td>
         </tr>
       </tbody>
@@ -29,7 +29,12 @@ export default {
   name: 'tripstable',
   props: [
     'trips'
-  ]
+  ],
+  methods: {
+    deleteTrip: function(id) {
+      console.log(`Delete trip ${id} called`)
+    }
+  }
 }
 </script>
 
