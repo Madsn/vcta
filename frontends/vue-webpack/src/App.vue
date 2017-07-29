@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navbar></navbar>
-    <div class="main-content">
+    <div class="container content-container">
       <router-view></router-view>
     </div>
   </div>
@@ -18,4 +18,23 @@ export default {
 </script>
 
 <style>
+.content-container {
+  padding-top: 16px;
+  padding-bottom: 160px;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
 </style>
