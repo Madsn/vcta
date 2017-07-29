@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-md-5">
       <userstats header="My Stats"></userstats>
+      <teaminvitations></teaminvitations>
     </div>
     <div class="col-md-7">
 
@@ -61,10 +62,12 @@
 
 <script>
 import userstats from '../components/userstats.vue'
+import teaminvitations from '../components/teaminvitations.vue'
 export default {
   name: 'dashboard',
   components: {
-    userstats
+    userstats,
+    teaminvitations
   }
 }
 </script>
