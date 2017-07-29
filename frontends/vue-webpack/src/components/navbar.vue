@@ -13,6 +13,7 @@
         <b-nav is-nav-bar>
           <b-nav-item to="/dashboard">Dashboard</b-nav-item>
           <b-nav-item to="/scoreboard">Scoreboard</b-nav-item>
+          <b-nav-item to="/rules">Rules</b-nav-item>
         </b-nav>
 
         <b-nav is-nav-bar class="ml-auto">
