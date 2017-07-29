@@ -15,8 +15,6 @@ jobs:
       # - image: circleci/mongo:3.4.4
 
     working_directory: ~/repo
-    general:
-      build_dir: frontends/vue-webpack
 
     steps:
       - checkout
@@ -24,18 +22,18 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-{{ checksum "frontends/vue-webpack/package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn install
+      - run: cd frontends/vue-webpack && yarn install
 
       - save_cache:
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - frontends/vue-webpack/node_modules
+          key: v1-dependencies-{{ checksum "frontends/vue-webpack/package.json" }}
 
       # run tests!
-      - run: yarn test
+      - run: cd frontends/vue-webpack && yarn test
 
 
