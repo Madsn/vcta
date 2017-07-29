@@ -36,22 +36,9 @@
                 </form>
               </div>
               <button class="btn btn-primary float-sm-right" style="margin-bottom: 10px;">
-                <i class="fa fa-plus" aria-hidden="true"></i> Add a new trip
+                <icon name="plus" aria-hidden="true"></icon> Add a new trip
               </button>
-              <div class="float-sm-left">
-                <p>No trips registered</p>
-              </div>
-              <table class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>Day</th>
-                    <th>Distance</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
+              <tripstable :trips="trips"></tripstable>
             </div>
           </div>
         </div>
@@ -63,11 +50,20 @@
 <script>
 import userstats from '../components/userstats.vue'
 import teaminvitations from '../components/teaminvitations.vue'
+import tripstable from '../components/tripstable.vue'
 export default {
   name: 'dashboard',
+  data() {
+    return {
+      trips: [
+        { date: '2015-05-01', distance: 5 },
+        { date: '2015-05-03', distance: 33 }]
+    }
+  },
   components: {
     userstats,
-    teaminvitations
+    teaminvitations,
+    tripstable
   }
 }
 </script>
