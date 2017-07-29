@@ -1,6 +1,6 @@
 <template>
   <div id="addtripform" style="display: block;">
-    <form name="trip-add-form" id="trip-add-form">
+    <form name="trip-add-form" id="trip-add-form" v-if="showForm">
       <div class="form-group row">
         <label for="tripDate" class="col-sm-2 col-form-label">Date</label>
         <div class="col-sm-10">
@@ -15,12 +15,12 @@
       </div>
       <div class="form-group row">
         <div class="offset-sm-2 col-sm-10">
-          <input type="button" class="btn btn-danger" value="Cancel">
+          <input type="button" class="btn btn-danger" @click="cancel()" value="Cancel">
           <input type="button" @click="submitTrip()" class="btn btn-primary" value="Submit"></button>
         </div>
       </div>
     </form>
-    <button class="btn btn-primary float-sm-right" style="margin-bottom: 10px;">
+    <button class="btn btn-primary float-sm-right" style="margin-bottom: 10px;" @click="showForm=true" v-else>
       <icon name="plus" aria-hidden="true"></icon> Add a new trip
     </button>
   </div>
@@ -42,7 +42,8 @@ export default {
         var now = new Date()
         var d = new Date(now.getFullYear(), 4, now.getDate())
         return d
-      }
+      },
+      showForm: false
     }
   },
   components: {
@@ -51,6 +52,10 @@ export default {
   methods: {
     submitTrip: function() {
       console.log('submitting trip')
+      this.showForm = false
+    },
+    cancel: function() {
+      this.showForm = false
     }
   }
 }
