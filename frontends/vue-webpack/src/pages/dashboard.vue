@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-5">
-      <userstats header="My Stats"></userstats>
+      <userstats header="My Stats" :userInfo="userInfo"></userstats>
       <teaminvitations></teaminvitations>
     </div>
     <div class="col-md-7">
@@ -20,7 +20,15 @@ export default {
     return {
       trips: [
         { id: 1, date: '2015-05-01', distance: 5 },
-        { id: 2, date: '2015-05-03', distance: 33 }]
+        { id: 2, date: '2015-05-03', distance: 33 }
+      ],
+      userInfo: {
+        full_name: 'John Smith',
+        total_distance: 55,
+        number_trips: 12,
+        cycling_days: 6,
+        team: null
+      }
     }
   },
   components: {
