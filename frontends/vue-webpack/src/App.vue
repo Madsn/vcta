@@ -17,7 +17,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+.clickable {
+  cursor: pointer;
+}
 .content-container {
   padding-top: 16px;
   padding-bottom: 160px;

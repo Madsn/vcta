@@ -16,7 +16,7 @@
           <td>{{trip.date}}</td>
           <td>{{trip.distance}}</td>
           <td>
-            <icon name="trash" title="Delete"></icon>
+            <icon name="trash" aria-label="Delete trip" title="Delete" class="clickable"></icon>
           </td>
         </tr>
       </tbody>
