@@ -3,21 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {
-  Button,
-  Select,
-  Submenu,
-  Menu,
-  MenuItem
-} from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
 Vue.config.productionTip = false
-Vue.use(Button)
-Vue.use(Select)
-Vue.use(Menu)
-Vue.use(MenuItem)
-Vue.use(Submenu)
+Vue.use(BootstrapVue)
 
 /* eslint-disable no-new */
 new Vue({
