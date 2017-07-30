@@ -1,10 +1,43 @@
 <template>
-  <h2>Scoreboard</h2>
+  <div>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)" v-bind:class="{active: showTeams}" @click="showTeams = true">Teams</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)" v-bind:class="{active: !showTeams}" @click="showTeams = false">Individuals</a>
+      </li>
+    </ul>
+    <div class="table-responsive">
+      <teams :teams="teams" v-if="showTeams"></teams>
+      <individuals :individuals="individuals" v-else></individuals>
+    </div>
+  </div>
 </template>
 
 <script>
+import individuals from '../components/scoreboard/individuals.vue'
+import teams from '../components/scoreboard/teams.vue'
+
 export default {
-  name: 'scoreboard'
+  name: 'scoreboard',
+  data() {
+    return {
+      showTeams: true,
+      individuals: [
+        { id: 1, name: 'John', team: 'Alpha', totalKm: 10, days: 5 },
+        { id: 2, name: 'Bill', team: 'Bravo', totalKm: 17.5, days: 3 }
+      ],
+      teams: [
+        { id: 1, name: 'Alpha', captain: 'John', memberCount: 1, totalKm: 10, avgKm: 10, avgDays: 5 },
+        { id: 2, name: 'Bravo', captain: 'Bill', memberCount: 1, totalKm: 17.5, avgKm: 17.5, avgDays: 3 }
+      ]
+    }
+  },
+  components: {
+    individuals,
+    teams
+  }
 }
 </script>
 
