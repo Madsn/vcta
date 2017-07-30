@@ -9,30 +9,7 @@
       </li>
     </ul>
     <div class="table-responsive">
-      <table class="table table-striped" v-if="showTeams">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Team name</th>
-            <th>Captain</th>
-            <th># of Members</th>
-            <th>Total Km</th>
-            <th>Km/members</th>
-            <th>Cycling days/members</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(team, index) in teams" v-bind:key="team.id">
-            <th>{{index+1}}</th>
-            <td>{{team.name}}</td>
-            <td>{{team.captain}}</td>
-            <td>{{team.memberCount}}</td>
-            <td>{{team.totalKm}}</td>
-            <td>{{team.avgKm}}</td>
-            <td>{{team.avgDays}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <teams :teams="teams" v-if="showTeams"></teams>
       <individuals :individuals="individuals" v-else></individuals>
     </div>
   </div>
@@ -40,6 +17,7 @@
 
 <script>
 import individuals from '../components/scoreboard/individuals.vue'
+import teams from '../components/scoreboard/teams.vue'
 
 export default {
   name: 'scoreboard',
@@ -55,7 +33,8 @@ export default {
     }
   },
   components: {
-    individuals
+    individuals,
+    teams
   }
 }
 </script>
