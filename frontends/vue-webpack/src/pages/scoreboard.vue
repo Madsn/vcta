@@ -25,10 +25,12 @@ export default {
     return {
       showTeams: true,
       individuals: [
-        { id: 1, name: 'John', team: 'Alpha', totalKm: 10, days: 5 }
+        { id: 1, name: 'John', team: 'Alpha', totalKm: 10, days: 5 },
+        { id: 2, name: 'Bill', team: 'Bravo', totalKm: 17.5, days: 3 }
       ],
       teams: [
-        { id: 1, name: 'Alpha', captain: 'John', memberCount: 1, totalKm: 10, avgKm: 10, avgDays: 5 }
+        { id: 1, name: 'Alpha', captain: 'John', memberCount: 1, totalKm: 10, avgKm: 10, avgDays: 5 },
+        { id: 2, name: 'Bravo', captain: 'Bill', memberCount: 1, totalKm: 17.5, avgKm: 17.5, avgDays: 3 }
       ]
     }
   },
