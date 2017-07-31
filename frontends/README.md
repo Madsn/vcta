@@ -2,8 +2,10 @@
 
 Login/register page
 Dashboard
-  - My status - incl. position
-  - My team stats - incl. position
+  card - my ranking distance | card - my ranking days | card - team ranking distance | card - team ranking days
+  card - table 2 above/below distance | card - table 2 above/below days | card - table 2 above/below team distance | card - table 2 above/below team days
+  chart - distance/day      chart - team distance/day 
+  chart - trips / day       chart - team days
 My Trips
 Scoreboard
   - Teams

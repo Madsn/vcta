@@ -17,12 +17,16 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './assets/sass/paper-dashboard.scss'
 import 'es6-promise/auto'
 
+import Icon from 'vue-awesome/components/Icon'
+import 'vue-awesome/icons' // TODO: import only used icons to reduce bundle size
+
 // plugin setup
 Vue.use(VueRouter)
 Vue.use(GlobalComponents)
 Vue.use(GlobalDirectives)
 Vue.use(Notifications)
 Vue.use(SideBar)
+Vue.component('icon', Icon)
 
 // configure router
 const router = new VueRouter({
