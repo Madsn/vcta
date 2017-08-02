@@ -4,5 +4,5 @@ from vcta_service.consumers import Demultiplexer
 
 
 channel_routing = [
-    route_class(Demultiplexer, path="^/api/ws"),
+    route_class(Demultiplexer, path="^/api/v1/ws"),
 ]

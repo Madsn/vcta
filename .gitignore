@@ -1,3 +1,4 @@
 .idea/vcs.xml
 backends/spring-boot-kotlin/out/
 **/node_modules/
+backends/vcta_django/.idea/

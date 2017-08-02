@@ -1,1 +1,1 @@
-activate vcta-django-ng
+activate vcta-django
