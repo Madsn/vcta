@@ -2,6 +2,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 def validate_only_one_instance(obj):
@@ -26,7 +28,7 @@ class User(AbstractUser):
     Extends built-in user model.
     """
     full_name = models.CharField(max_length=30)
-    team = models.ForeignKey('Team', null=True, blank=True)
+    team = models.ForeignKey('Team', null=True, blank=True, related_name="members", on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.username
@@ -36,7 +38,7 @@ class Trip(models.Model):
     """
     Represents a Trip.
     """
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name="trips")
     date = models.DateField()
     distance = models.DecimalField(decimal_places=2, max_digits=5,
                                    validators=[MinValueValidator(0.01), MaxValueValidator(300)])
@@ -51,10 +53,17 @@ class Team(models.Model):
     Represents a Team.
     """
     name = models.CharField(max_length=30)
-    captain = models.ForeignKey(User, related_name="captain")
+    captain = models.ForeignKey(User, null=False, related_name="captain")
 
     def __str__(self):
         return self.name
+
+
+@receiver(post_save, sender=Team, dispatch_uid="Ensure captains are members of their team")
+def captain_must_be_member(sender, instance, **kwargs):
+    captain = instance.captain
+    captain.team = instance
+    captain.save()
 
 
 class Config(models.Model):
