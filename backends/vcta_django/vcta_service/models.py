@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
 
@@ -34,6 +34,23 @@ class User(AbstractUser):
         return self.username
 
 
+@receiver(pre_save, sender=User, dispatch_uid="Ensure captains can not leave their team")
+def captain_must_stay_in_team(sender, instance, **kwargs):
+    try:
+        old_instance = sender.objects.get(pk=instance.pk)
+    except sender.DoesNotExist:
+        pass # Object is new
+    else:
+        if old_instance.team is None:
+            # user has been added to a team
+            return
+        else:
+            # user removed from a team
+            if old_instance.team.captain == old_instance and instance.team != old_instance.team:
+                raise ValidationError("Team captain {0} is not allowed to leave team {1}"
+                                      .format(instance, old_instance.team))
+
+
 class Trip(models.Model):
     """
     Represents a Trip.
@@ -62,8 +79,12 @@ class Team(models.Model):
 @receiver(post_save, sender=Team, dispatch_uid="Ensure captains are members of their team")
 def captain_must_be_member(sender, instance, **kwargs):
     captain = instance.captain
-    captain.team = instance
-    captain.save()
+    if captain.team != instance:
+        print("Setting captain")
+        captain.team = instance
+        captain.save()
+    else:
+        print("Captain already set")
 
 
 class Config(models.Model):
