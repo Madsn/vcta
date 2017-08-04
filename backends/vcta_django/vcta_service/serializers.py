@@ -43,7 +43,7 @@ class ScoreboardUserSerializer(serializers.Serializer):
     username = serializers.CharField()
     team = serializers.CharField()
     trips__distance__sum = serializers.IntegerField()
-    # TODO - days
+    trips__date__count = serializers.IntegerField()
 
 
 class ScoreboardTeamSerializer(serializers.Serializer):
