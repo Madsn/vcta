@@ -41,9 +41,9 @@ class ScoreboardUserSerializer(serializers.Serializer):
         pass
 
     username = serializers.CharField()
-    team = serializers.CharField()
-    trips__distance__sum = serializers.IntegerField()
-    trips__date__count = serializers.IntegerField()
+    team = serializers.IntegerField()
+    distance = serializers.IntegerField()
+    days = serializers.IntegerField()
 
 
 class ScoreboardTeamSerializer(serializers.Serializer):
@@ -53,6 +53,11 @@ class ScoreboardTeamSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         pass
 
+    id = serializers.IntegerField()
     name = serializers.CharField()
-    captain__username = serializers.CharField()
-    members__trips__distance__sum = serializers.IntegerField()
+    membercount = serializers.IntegerField()
+    captain = serializers.IntegerField()
+    distance = serializers.IntegerField()
+    # days = serializers.IntegerField()
+    days_per_member = serializers.FloatField()
+    distance_per_member = serializers.FloatField()

@@ -1,7 +1,8 @@
+from django.db.models.functions import Cast
 from drf_multiple_model.views import MultipleModelAPIView
 from .serializers import TripSerializer, UserSerializer
 from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer
-from django.db.models import Sum, Count
+from django.db.models import Sum, Count, F, FloatField
 
 from . import models
 
@@ -18,11 +19,20 @@ class Dashboard(MultipleModelAPIView):
 
 class Scoreboard(MultipleModelAPIView):
     def get(self, request, *args, **kwargs):
+        users_query = models.User.objects.values("username", "team") \
+            .annotate(distance=Sum("trips__distance"),
+                      days=Count("trips__date", distinct=True))
+
+        teams_query = models.Team.objects \
+            .values("id", "name", "captain") \
+            .annotate(distance=Sum("members__trips__distance"),
+                      membercount=Count("members", distinct=True),
+                      days=Count("members__trips__date"),
+                      days_per_member=Cast(F("days"), FloatField())/Cast(F("membercount"), FloatField()),
+                      distance_per_member=Cast(F("distance"), FloatField())/Cast(F("membercount"), FloatField()))
+
         self.queryList = [
-            (models.User.objects.all().values('username', 'team').annotate(Sum('trips__distance'),
-                                                                           Count('trips__date', distinct=True)),
-             ScoreboardUserSerializer),
-            (models.Team.objects.all().values('name', 'captain__username').annotate(Sum('members__trips__distance')),
-             ScoreboardTeamSerializer),
+            (users_query, ScoreboardUserSerializer),
+            (teams_query, ScoreboardTeamSerializer),
         ]
         return super(Scoreboard, self).get(request, *args, **kwargs)
