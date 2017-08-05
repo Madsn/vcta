@@ -1,0 +1,118 @@
+[
+  {
+    "model": "vcta_service.user",
+    "pk": 2,
+    "fields": {
+      "password": "1234",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "user1",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2017-08-04T04:46:29Z",
+      "full_name": "xx",
+      "team": 1,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "vcta_service.user",
+    "pk": 3,
+    "fields": {
+      "password": "123",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "user2",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2017-08-04T04:46:59Z",
+      "full_name": "xx",
+      "team": 2,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "vcta_service.trip",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "date": "2017-08-04",
+      "distance": "1.00",
+      "last_updated": "2017-08-04T04:46:43.972Z"
+    }
+  },
+  {
+    "model": "vcta_service.trip",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "date": "2017-08-05",
+      "distance": "2.00",
+      "last_updated": "2017-08-04T04:46:51.514Z"
+    }
+  },
+  {
+    "model": "vcta_service.trip",
+    "pk": 3,
+    "fields": {
+      "user": 2,
+      "date": "2017-08-04",
+      "distance": "3.00",
+      "last_updated": "2017-08-04T04:46:57.097Z"
+    }
+  },
+  {
+    "model": "vcta_service.trip",
+    "pk": 4,
+    "fields": {
+      "user": 3,
+      "date": "2017-08-04",
+      "distance": "1.00",
+      "last_updated": "2017-08-04T04:47:11.465Z"
+    }
+  },
+  {
+    "model": "vcta_service.trip",
+    "pk": 5,
+    "fields": {
+      "user": 3,
+      "date": "2017-08-04",
+      "distance": "2.00",
+      "last_updated": "2017-08-04T04:47:16.857Z"
+    }
+  },
+  {
+    "model": "vcta_service.trip",
+    "pk": 6,
+    "fields": {
+      "user": 3,
+      "date": "2017-08-04",
+      "distance": "3.00",
+      "last_updated": "2017-08-04T04:47:28.825Z"
+    }
+  },
+  {
+    "model": "vcta_service.team",
+    "pk": 1,
+    "fields": {
+      "name": "Team1",
+      "captain": 2
+    }
+  },
+  {
+    "model": "vcta_service.team",
+    "pk": 2,
+    "fields": {
+      "name": "Team2",
+      "captain": 3
+    }
+  }
+]
