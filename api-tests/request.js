@@ -8,10 +8,13 @@ export default function request(url, options) {
     return new Promise(resolve => {
         http.get(options, response => {
             const { statusCode } = response;
-            const contentType = response.headers['content-type'];
+            const headers = {
+                'content-type': response.headers['content-type'],
+                'location': response.headers['location']
+            }
             let data = '';
             response.on('data', _data => data += _data);
-            response.on('end', () => resolve({data, statusCode, contentType}));
+            response.on('end', () => resolve({full: response, snapshot: {data, statusCode, headers}}));
         });
     });
 }

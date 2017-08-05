@@ -1,23 +1,43 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <navbar></navbar>
+    <div class="container content-container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import navbar from './components/navbar.vue'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    navbar
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="less">
+.clickable {
+  cursor: pointer;
+}
+.content-container {
+  padding-top: 16px;
+  padding-bottom: 160px;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
 }
 </style>
