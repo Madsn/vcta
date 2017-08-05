@@ -55,9 +55,9 @@ class ScoreboardTeamSerializer(serializers.Serializer):
 
     id = serializers.IntegerField()
     name = serializers.CharField()
-    membercount = serializers.IntegerField()
+    memberCount = serializers.IntegerField()
     captain = serializers.IntegerField()
     distance = serializers.IntegerField()
     # days = serializers.IntegerField()
-    days_per_member = serializers.FloatField()
-    distance_per_member = serializers.FloatField()
+    daysPerMember = serializers.FloatField()
+    distancePerMember = serializers.FloatField()

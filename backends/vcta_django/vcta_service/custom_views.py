@@ -26,10 +26,10 @@ class Scoreboard(MultipleModelAPIView):
         teams_query = models.Team.objects \
             .values("id", "name", "captain") \
             .annotate(distance=Sum("members__trips__distance"),
-                      membercount=Count("members", distinct=True),
+                      memberCount=Count("members", distinct=True),
                       days=Count("members__trips__date"),
-                      days_per_member=Cast(F("days"), FloatField())/Cast(F("membercount"), FloatField()),
-                      distance_per_member=Cast(F("distance"), FloatField())/Cast(F("membercount"), FloatField()))
+                      daysPerMember=Cast(F("days"), FloatField())/Cast(F("memberCount"), FloatField()),
+                      distancePerMember=Cast(F("distance"), FloatField())/Cast(F("memberCount"), FloatField()))
 
         self.queryList = [
             (users_query, ScoreboardUserSerializer),
