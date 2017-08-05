@@ -22,9 +22,12 @@ class TeamSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    fullName = serializers.CharField(source="full_name")
+    dateJoined = serializers.DateTimeField(source="date_joined")
+
     class Meta:
         model = models.User
-        fields = ['id', 'username', 'full_name', 'email', 'team', 'date_joined']
+        fields = ['id', 'username', 'fullName', 'email', 'team', 'dateJoined']
 
 
 class ConfigSerializer(serializers.ModelSerializer):
