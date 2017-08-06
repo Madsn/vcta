@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import userstats from '../components/userstats.vue'
-import teaminvitations from '../components/teaminvitations.vue'
-import tripscard from '../components/tripscard.vue'
+import userstats from '../components/shared/userstats.vue'
+import teaminvitations from '../components/dashboard/teaminvitations.vue'
+import tripscard from '../components/dashboard/tripscard.vue'
 export default {
   name: 'dashboard',
   data() {

@@ -25,7 +25,7 @@
               <span style="font-weight: bold;">User</span>
             </template>
 
-            <b-dropdown-item>Profile</b-dropdown-item>
+            <b-dropdown-item to="/login">Login</b-dropdown-item>
             <b-dropdown-item>Signout</b-dropdown-item>
           </b-nav-item-dropdown>
 
