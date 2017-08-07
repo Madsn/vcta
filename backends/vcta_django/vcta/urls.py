@@ -16,12 +16,16 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework.documentation import include_docs_urls
+from rest_framework_swagger.views import get_swagger_view
 
 API_TITLE = 'VCTA API'
 API_DESCRIPTION = 'Django-rest-framework API implementation'
 
+schema_view = get_swagger_view(title=API_TITLE)
+
 urlpatterns = [
     url(r'^docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
+    url(r'^swagger/', schema_view),
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('vcta_service.urls')),
 ]
