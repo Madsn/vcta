@@ -1,4 +1,3 @@
-/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "store" }] */
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
@@ -14,11 +13,13 @@ import Icon from 'vue-awesome/components/Icon'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.component('icon', Icon)
+Vue.use(require('vue-moment'))
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: {
     App

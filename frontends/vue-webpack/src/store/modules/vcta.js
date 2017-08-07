@@ -4,12 +4,12 @@ const state = {
   trips: [
     {
       id: 1,
-      date: '2015-05-01',
+      date: new Date('2015-05-01'),
       distance: 5
     },
     {
       id: 2,
-      date: '2015-05-03',
+      date: new Date('2015-05-03'),
       distance: 33
     }
   ],
@@ -30,20 +30,20 @@ const getters = {
 
 // actions
 const actions = {
-  addTrip({
-    commit,
-    state
-  }, trip) {
+  addTrip({commit}, trip) {
     commit(types.ADD_TRIP, trip)
   }
 }
 
 // mutations
+var maxId = 3
 const mutations = {
-  [types.ADD_TRIP](state, {
-    trip
-  }) {
-    state.trips.push(trip)
+  [types.ADD_TRIP](state, payload) {
+    console.log('Adding trip, ')
+    console.log(payload)
+    const newTrip = {id: maxId++, ...payload}
+    console.log(newTrip)
+    state.trips.push(newTrip)
   }
 }
 
