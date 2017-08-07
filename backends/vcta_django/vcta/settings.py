@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_multiple_model',
     'corsheaders',
-    'vcta_service'
+    'vcta_service',
+    'rest_framework_swagger'
 ]
 
 MIDDLEWARE = [
