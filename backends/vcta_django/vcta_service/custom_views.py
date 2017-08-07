@@ -8,6 +8,11 @@ from . import models
 
 
 class Dashboard(MultipleModelAPIView):
+    """
+    Gets data relevant for dashboard.
+    Trips: Trips related to the current user
+    User: Info about the current user
+    """
     def get(self, request, *args, **kwargs):
         user = request.user
         self.queryList = [

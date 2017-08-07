@@ -23,6 +23,9 @@ class TripList(generics.ListCreateAPIView):
 
 
 class TripDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    return Details on specific trip
+    """
     queryset = models.Trip.objects.all()
     serializer_class = serializers.TripSerializer
 
