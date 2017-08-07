@@ -32,6 +32,9 @@ const getters = {
 const actions = {
   addTrip({commit}, trip) {
     commit(types.ADD_TRIP, trip)
+  },
+  deleteTrip({commit}, id) {
+    commit(types.DELETE_TRIP, id)
   }
 }
 
@@ -39,11 +42,16 @@ const actions = {
 var maxId = 3
 const mutations = {
   [types.ADD_TRIP](state, payload) {
-    console.log('Adding trip, ')
-    console.log(payload)
     const newTrip = {id: maxId++, ...payload}
-    console.log(newTrip)
     state.trips.push(newTrip)
+  },
+  [types.DELETE_TRIP](state, id) {
+    const index = state.trips.findIndex(function(elem) {
+      return elem.id === id
+    })
+    if (index > -1) {
+      state.trips.splice(index, 1)
+    }
   }
 }
 

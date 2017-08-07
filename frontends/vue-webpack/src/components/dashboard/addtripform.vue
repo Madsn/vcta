@@ -50,17 +50,16 @@ export default {
   },
   methods: {
     getInitialDatePickerValue: function() {
-      var now = new Date()
-      var d = new Date(now.getFullYear(), 4, now.getDate())
+      const now = new Date()
+      const d = new Date(now.getFullYear(), 4, now.getDate())
       return d
     },
     ...mapActions([
       'addTrip'
     ]),
     submitTrip: function() {
-      console.log('submitting trip')
-      console.log(this.datePickerDate)
       this.addTrip({date: new Date(this.datePickerDate), distance: this.distance})
+      this.distance = null
       this.showForm = false
     },
     cancel: function() {
