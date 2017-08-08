@@ -1,4 +1,6 @@
 import * as types from '../mutation-types'
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:8888/api/v1/'
 // initial state
 const state = {
   trips: [
@@ -48,6 +50,11 @@ const actions = {
   },
   deleteTrip({commit}, id) {
     commit(types.DELETE_TRIP, id)
+  },
+  getScoreboard({commit}) {
+    axios.get('custom/scoreboard/').then((response) =>
+      console.log(response)
+    )
   }
 }
 

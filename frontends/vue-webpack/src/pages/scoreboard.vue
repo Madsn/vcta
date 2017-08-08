@@ -12,13 +12,14 @@
       <teams :teams="scoreboard.teams" v-if="showTeams"></teams>
       <individuals :individuals="scoreboard.individuals" v-else></individuals>
     </div>
+    <button v-on:click="getScoreboard()">Get scoreboard</button>
   </div>
 </template>
 
 <script>
 import individuals from '../components/scoreboard/individuals.vue'
 import teams from '../components/scoreboard/teams.vue'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: 'scoreboard',
@@ -35,6 +36,11 @@ export default {
   components: {
     individuals,
     teams
+  },
+  methods: {
+    ...mapActions([
+      'getScoreboard'
+    ])
   }
 }
 </script>

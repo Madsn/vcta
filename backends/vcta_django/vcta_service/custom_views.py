@@ -1,5 +1,7 @@
 from django.db.models.functions import Cast
 from drf_multiple_model.views import MultipleModelAPIView
+from rest_framework import permissions
+
 from .serializers import TripSerializer, UserSerializer
 from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer
 from django.db.models import Sum, Count, F, FloatField
@@ -13,6 +15,8 @@ class Dashboard(MultipleModelAPIView):
     Trips: Trips related to the current user
     User: Info about the current user
     """
+    permission_classes = (permissions.IsAuthenticated,)
+
     def get(self, request, *args, **kwargs):
         user = request.user
         self.queryList = [
@@ -23,6 +27,7 @@ class Dashboard(MultipleModelAPIView):
 
 
 class Scoreboard(MultipleModelAPIView):
+
     def get(self, request, *args, **kwargs):
         users_query = models.User.objects.values("username", "team__name", "team") \
             .annotate(distance=Sum("trips__distance"),
