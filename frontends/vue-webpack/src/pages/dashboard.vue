@@ -11,36 +11,29 @@
 </template>
 
 <script>
-import userstats from '../components/userstats.vue'
-import teaminvitations from '../components/teaminvitations.vue'
-import tripscard from '../components/tripscard.vue'
-export default {
-  name: 'dashboard',
-  data() {
-    return {
-      trips: [
-        { id: 1, date: '2015-05-01', distance: 5 },
-        { id: 2, date: '2015-05-03', distance: 33 }
-      ],
-      userInfo: {
-        full_name: 'John Smith',
-        total_distance: 55,
-        number_trips: 12,
-        cycling_days: 6,
-        team: null
-      }
+  import userstats from '../components/shared/userstats.vue'
+  import teaminvitations from '../components/dashboard/teaminvitations.vue'
+  import tripscard from '../components/dashboard/tripscard.vue'
+  import {mapGetters} from 'vuex'
+
+  export default {
+    name: 'dashboard',
+    computed: {
+      ...mapGetters({
+        trips: 'trips',
+        userInfo: 'userInfo'
+      })
+    },
+    components: {
+      userstats,
+      teaminvitations,
+      tripscard
     }
-  },
-  components: {
-    userstats,
-    teaminvitations,
-    tripscard
   }
-}
 </script>
 
 <style lang="less">
-.card {
-  margin-bottom: 16px;
-}
+  .card {
+    margin-bottom: 16px;
+  }
 </style>

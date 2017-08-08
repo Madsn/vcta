@@ -7,19 +7,19 @@
         <tbody>
           <tr>
             <td>Full name</td>
-            <td>{{userInfo.full_name}}</td>
+            <td>{{userInfo.fullName}}</td>
           </tr>
           <tr>
             <td>Total distance</td>
-            <td>{{userInfo.total_distance}}</td>
+            <td>{{userInfo.distance}}</td>
           </tr>
           <tr>
             <td>Number of trips</td>
-            <td>{{userInfo.number_trips}}</td>
+            <td>{{userInfo.tripCount}}</td>
           </tr>
           <tr>
             <td>Cycling days</td>
-            <td>{{userInfo.cycling_days}}</td>
+            <td>{{userInfo.days}}</td>
           </tr>
           <tr>
             <td>Team</td>

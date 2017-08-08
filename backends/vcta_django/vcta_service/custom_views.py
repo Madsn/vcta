@@ -24,12 +24,12 @@ class Dashboard(MultipleModelAPIView):
 
 class Scoreboard(MultipleModelAPIView):
     def get(self, request, *args, **kwargs):
-        users_query = models.User.objects.values("username", "team") \
+        users_query = models.User.objects.values("username", "team__name", "team") \
             .annotate(distance=Sum("trips__distance"),
                       days=Count("trips__date", distinct=True))
 
         teams_query = models.Team.objects \
-            .values("id", "name", "captain") \
+            .values("id", "name", "captain", "captain__username") \
             .annotate(distance=Sum("members__trips__distance"),
                       memberCount=Count("members", distinct=True),
                       days=Count("members__trips__date"),

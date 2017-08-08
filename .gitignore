@@ -2,3 +2,5 @@
 backends/spring-boot-kotlin/out/
 **/node_modules/
 backends/vcta_django/.idea/
+.idea/serialmonitor_settings.xml
+.idea/workspace.xml
