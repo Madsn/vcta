@@ -25,14 +25,10 @@ const state = {
     team: 1
   },
   scoreboard: {
-    loading: false,
+    loading: true,
     individuals: [
-      { id: 1, username: 'John', team: 1, teamName: 'Alpha', distance: 10, days: 2 },
-      { id: 2, username: 'Bill', team: 2, teamName: 'Bravo', distance: 17.5, days: 3 }
     ],
     teams: [
-      { id: 1, name: 'Alpha', captain: 'John', memberCount: 1, distance: 10, avgDistance: 10, avgDays: 5 },
-      { id: 2, name: 'Bravo', captain: 'Bill', memberCount: 1, distance: 17.5, avgDistance: 17.5, avgDays: 3 }
     ]
   }
 }

@@ -1,19 +1,23 @@
 <template>
   <div>
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link" href="javascript:void(0)" v-bind:class="{active: showTeams}" @click="showTeams = true">Teams</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="javascript:void(0)" v-bind:class="{active: !showTeams}" @click="showTeams = false">Individuals</a>
-      </li>
-    </ul>
-    <div class="table-responsive">
+    <nav>
+      <b-nav tabs>
+        <b-nav-item :active="showTeams" @click="showTeams = true">Teams</b-nav-item>
+        <b-nav-item :active="!showTeams" @click="showTeams = false">Individuals</b-nav-item>
+        <li class="ml-auto">
+          <button class="btn btn-xs btn-secondary">
+            <icon class="align-middle" name="refresh" aria-hidden="true" :scale="1" @click.native="getScoreboard()"></icon>
+          </button>
+        </li>
+      </b-nav>
+    </nav>
+    <div class="d-flex justify-content-center" style="padding-top: 56px" v-if="scoreboard.loading" >
+      <vue-spinner :loading="scoreboard.loading" :color="'#009dde'"></vue-spinner>
+    </div>
+    <div class="table-responsive" v-if="!scoreboard.loading">
       <teams :teams="scoreboard.teams" v-if="showTeams"></teams>
       <individuals :individuals="scoreboard.individuals" v-else></individuals>
     </div>
-    <button v-on:click="getScoreboard()">Get scoreboard</button>
-    <p>loading: {{scoreboard.loading}}</p>
   </div>
 </template>
 
@@ -21,6 +25,7 @@
 import individuals from '../components/scoreboard/individuals.vue'
 import teams from '../components/scoreboard/teams.vue'
 import {mapGetters, mapActions} from 'vuex'
+import PacmanLoader from 'vue-spinner/src/PacmanLoader'
 
 export default {
   name: 'scoreboard',
@@ -29,6 +34,9 @@ export default {
       scoreboard: 'scoreboard'
     })
   },
+  created() {
+    this.$store.dispatch('getScoreboard')
+  },
   data() {
     return {
       showTeams: true
@@ -36,7 +44,8 @@ export default {
   },
   components: {
     individuals,
-    teams
+    teams,
+    'vue-spinner': PacmanLoader
   },
   methods: {
     ...mapActions([
