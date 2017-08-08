@@ -14,6 +14,7 @@ const state = {
     }
   ],
   userInfo: {
+    id: 1,
     fullName: 'John Smith',
     name: 'John',
     distance: 10,
