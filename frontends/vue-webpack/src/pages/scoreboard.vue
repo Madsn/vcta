@@ -9,34 +9,39 @@
       </li>
     </ul>
     <div class="table-responsive">
-      <teams :teams="teams" v-if="showTeams"></teams>
-      <individuals :individuals="individuals" v-else></individuals>
+      <teams :teams="scoreboard.teams" v-if="showTeams"></teams>
+      <individuals :individuals="scoreboard.individuals" v-else></individuals>
     </div>
+    <button v-on:click="getScoreboard()">Get scoreboard</button>
+    <p>loading: {{scoreboard.loading}}</p>
   </div>
 </template>
 
 <script>
 import individuals from '../components/scoreboard/individuals.vue'
 import teams from '../components/scoreboard/teams.vue'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: 'scoreboard',
+  computed: {
+    ...mapGetters({
+      scoreboard: 'scoreboard'
+    })
+  },
   data() {
     return {
-      showTeams: true,
-      individuals: [
-        { id: 1, name: 'John', team: 'Alpha', totalKm: 10, days: 5 },
-        { id: 2, name: 'Bill', team: 'Bravo', totalKm: 17.5, days: 3 }
-      ],
-      teams: [
-        { id: 1, name: 'Alpha', captain: 'John', memberCount: 1, totalKm: 10, avgKm: 10, avgDays: 5 },
-        { id: 2, name: 'Bravo', captain: 'Bill', memberCount: 1, totalKm: 17.5, avgKm: 17.5, avgDays: 3 }
-      ]
+      showTeams: true
     }
   },
   components: {
     individuals,
     teams
+  },
+  methods: {
+    ...mapActions([
+      'getScoreboard'
+    ])
   }
 }
 </script>

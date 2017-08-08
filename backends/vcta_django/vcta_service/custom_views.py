@@ -1,5 +1,7 @@
 from django.db.models.functions import Cast
 from drf_multiple_model.views import MultipleModelAPIView
+from rest_framework import permissions
+
 from .serializers import TripSerializer, UserSerializer
 from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer
 from django.db.models import Sum, Count, F, FloatField
@@ -13,6 +15,9 @@ class Dashboard(MultipleModelAPIView):
     Trips: Trips related to the current user
     User: Info about the current user
     """
+    permission_classes = (permissions.IsAuthenticated,)
+    objectify = True
+
     def get(self, request, *args, **kwargs):
         user = request.user
         self.queryList = [
@@ -23,21 +28,23 @@ class Dashboard(MultipleModelAPIView):
 
 
 class Scoreboard(MultipleModelAPIView):
+    objectify = True
+
     def get(self, request, *args, **kwargs):
-        users_query = models.User.objects.values("username", "team") \
+        users_query = models.User.objects.values("username", "team__name", "team") \
             .annotate(distance=Sum("trips__distance"),
                       days=Count("trips__date", distinct=True))
 
         teams_query = models.Team.objects \
-            .values("id", "name", "captain") \
+            .values("id", "name", "captain", "captain__username") \
             .annotate(distance=Sum("members__trips__distance"),
                       memberCount=Count("members", distinct=True),
                       days=Count("members__trips__date"),
-                      daysPerMember=Cast(F("days"), FloatField())/Cast(F("memberCount"), FloatField()),
-                      distancePerMember=Cast(F("distance"), FloatField())/Cast(F("memberCount"), FloatField()))
+                      avgDays=Cast(F("days"), FloatField())/Cast(F("memberCount"), FloatField()),
+                      avgDistance=Cast(F("distance"), FloatField())/Cast(F("memberCount"), FloatField()))
 
-        self.queryList = [
-            (users_query, ScoreboardUserSerializer),
-            (teams_query, ScoreboardTeamSerializer),
-        ]
+        self.queryList = {
+            (users_query, ScoreboardUserSerializer, 'individuals'),
+            (teams_query, ScoreboardTeamSerializer, 'teams'),
+        }
         return super(Scoreboard, self).get(request, *args, **kwargs)
