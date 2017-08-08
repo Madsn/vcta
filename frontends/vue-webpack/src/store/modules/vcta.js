@@ -25,9 +25,10 @@ const state = {
     team: 1
   },
   scoreboard: {
+    loading: false,
     individuals: [
-      { id: 1, name: 'John', team: 1, teamName: 'Alpha', distance: 10, days: 2 },
-      { id: 2, name: 'Bill', team: 2, teamName: 'Bravo', distance: 17.5, days: 3 }
+      { id: 1, username: 'John', team: 1, teamName: 'Alpha', distance: 10, days: 2 },
+      { id: 2, username: 'Bill', team: 2, teamName: 'Bravo', distance: 17.5, days: 3 }
     ],
     teams: [
       { id: 1, name: 'Alpha', captain: 'John', memberCount: 1, distance: 10, avgDistance: 10, avgDays: 5 },
@@ -52,9 +53,10 @@ const actions = {
     commit(types.DELETE_TRIP, id)
   },
   getScoreboard({commit}) {
-    axios.get('custom/scoreboard/').then((response) =>
-      console.log(response)
-    )
+    commit(types.LOADING_SCOREBOARD)
+    axios.get('custom/scoreboard/').then((response) => {
+      commit(types.SUCCESS_LOAD_SCOREBOARD, response.data)
+    })
   }
 }
 
@@ -68,6 +70,12 @@ function getDistinctDays(trips) {
   return days.size
 }
 const mutations = {
+  [types.LOADING_SCOREBOARD](state) {
+    state.scoreboard.loading = true
+  },
+  [types.SUCCESS_LOAD_SCOREBOARD](state, payload) {
+    state.scoreboard = {loading: false, ...payload}
+  },
   [types.ADD_TRIP](state, payload) {
     const newTrip = {id: maxId++, ...payload}
     state.trips.push(newTrip)

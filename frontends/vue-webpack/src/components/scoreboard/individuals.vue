@@ -12,7 +12,7 @@
     <tbody>
       <tr v-for="(individual, index) in individuals" v-bind:key="individual.id">
         <th>{{index+1}}</th>
-        <td>{{individual.name}}</td>
+        <td>{{individual.username}}</td>
         <td>{{individual.teamName}}</td>
         <td>{{individual.distance}}</td>
         <td>{{individual.days}}</td>

@@ -16,6 +16,7 @@ class Dashboard(MultipleModelAPIView):
     User: Info about the current user
     """
     permission_classes = (permissions.IsAuthenticated,)
+    objectify = True
 
     def get(self, request, *args, **kwargs):
         user = request.user
@@ -27,6 +28,7 @@ class Dashboard(MultipleModelAPIView):
 
 
 class Scoreboard(MultipleModelAPIView):
+    objectify = True
 
     def get(self, request, *args, **kwargs):
         users_query = models.User.objects.values("username", "team__name", "team") \
@@ -38,11 +40,11 @@ class Scoreboard(MultipleModelAPIView):
             .annotate(distance=Sum("members__trips__distance"),
                       memberCount=Count("members", distinct=True),
                       days=Count("members__trips__date"),
-                      daysPerMember=Cast(F("days"), FloatField())/Cast(F("memberCount"), FloatField()),
-                      distancePerMember=Cast(F("distance"), FloatField())/Cast(F("memberCount"), FloatField()))
+                      avgDays=Cast(F("days"), FloatField())/Cast(F("memberCount"), FloatField()),
+                      avgDistance=Cast(F("distance"), FloatField())/Cast(F("memberCount"), FloatField()))
 
-        self.queryList = [
-            (users_query, ScoreboardUserSerializer),
-            (teams_query, ScoreboardTeamSerializer),
-        ]
+        self.queryList = {
+            (users_query, ScoreboardUserSerializer, 'individuals'),
+            (teams_query, ScoreboardTeamSerializer, 'teams'),
+        }
         return super(Scoreboard, self).get(request, *args, **kwargs)

@@ -13,6 +13,7 @@
       <individuals :individuals="scoreboard.individuals" v-else></individuals>
     </div>
     <button v-on:click="getScoreboard()">Get scoreboard</button>
+    <p>loading: {{scoreboard.loading}}</p>
   </div>
 </template>
 
