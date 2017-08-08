@@ -64,5 +64,5 @@ class ScoreboardTeamSerializer(serializers.Serializer):
     captainName = serializers.CharField(source="captain__username")
     distance = serializers.IntegerField()
     # days = serializers.IntegerField()
-    daysPerMember = serializers.FloatField()
-    distancePerMember = serializers.FloatField()
+    avgDays = serializers.FloatField()
+    avgDistance = serializers.FloatField()
