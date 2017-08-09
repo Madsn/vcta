@@ -29,6 +29,7 @@ class Dashboard(MultipleModelAPIView):
 
 class Scoreboard(MultipleModelAPIView):
     objectify = True
+    permission_classes = (permissions.AllowAny,)
 
     def get(self, request, *args, **kwargs):
         users_query = models.User.objects.values("username", "team__name", "team") \

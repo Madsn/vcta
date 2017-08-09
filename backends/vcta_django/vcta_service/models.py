@@ -6,13 +6,6 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
 
-def validate_only_one_instance(obj):
-    model = obj.__class__
-    if (model.objects.count() > 0 and
-            obj.id != model.objects.get().id):
-        raise ValidationError("Can only create 1 %s instance" % model.__name__)
-
-
 class Hero(models.Model):
     """
     Represents a Hero.
@@ -85,6 +78,13 @@ def captain_must_be_member(sender, instance, **kwargs):
         captain.save()
     else:
         print("Captain already set")
+
+
+def validate_only_one_instance(obj):
+    model = obj.__class__
+    if (model.objects.count() > 0 and
+                obj.id != model.objects.get().id):
+        raise ValidationError("Can only create 1 %s instance" % model.__name__)
 
 
 class Config(models.Model):

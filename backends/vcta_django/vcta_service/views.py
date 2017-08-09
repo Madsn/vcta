@@ -1,4 +1,5 @@
 from rest_framework import generics, filters
+from rest_framework import permissions
 
 from . import models
 from . import serializers
@@ -23,9 +24,6 @@ class TripList(generics.ListCreateAPIView):
 
 
 class TripDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-    return Details on specific trip
-    """
     queryset = models.Trip.objects.all()
     serializer_class = serializers.TripSerializer
 
@@ -35,7 +33,7 @@ class TeamList(generics.ListCreateAPIView):
     serializer_class = serializers.TeamSerializer
 
 
-class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
+class TeamDetail(generics.RetrieveAPIView):
     queryset = models.Team.objects.all()
     serializer_class = serializers.TeamSerializer
 
@@ -50,11 +48,15 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.UserSerializer
 
 
-class ConfigList(generics.ListCreateAPIView):
+class ConfigList(generics.ListAPIView):
+    permission_classes = permissions.AllowAny
+
     queryset = models.Config.objects.all()
     serializer_class = serializers.ConfigSerializer
 
 
-class ConfigDetail(generics.RetrieveUpdateDestroyAPIView):
+class ConfigDetail(generics.RetrieveAPIView):
+    permission_classes = permissions.AllowAny
+
     queryset = models.Config.objects.all()
     serializer_class = serializers.ConfigSerializer
