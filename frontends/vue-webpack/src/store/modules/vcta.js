@@ -1,6 +1,16 @@
 import * as types from '../mutation-types'
 import axios from 'axios'
+let AUTH_TOKEN = 'auth_token'
+
 axios.defaults.baseURL = 'http://localhost:8888/api/v1/'
+
+function setAxiosToken() {
+  if (localStorage.getItem(AUTH_TOKEN)) {
+    axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem(AUTH_TOKEN)
+  }
+}
+setAxiosToken()
+
 // initial state
 const state = {
   trips: [
@@ -52,6 +62,15 @@ const actions = {
     commit(types.LOADING_SCOREBOARD)
     axios.get('custom/scoreboard/').then((response) => {
       commit(types.SUCCESS_LOAD_SCOREBOARD, response.data)
+    })
+  },
+  getAuthToken({commit}, credentials) {
+    axios.post('obtain-auth-token/', credentials).then((response) => {
+      localStorage.setItem(AUTH_TOKEN, response.data.token)
+      setAxiosToken()
+    }).catch((err) => {
+      console.error('Error getting auth token')
+      console.error(err)
     })
   }
 }
