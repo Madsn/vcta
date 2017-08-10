@@ -42,6 +42,7 @@ const actions = {
   },
   deleteTrip({commit}, id) {
     commit(types.DELETE_TRIP, id)
+    axios.delete('custom/trip/' + id)
   },
   getScoreboard({commit}) {
     commit(types.LOADING_SCOREBOARD)
@@ -95,24 +96,8 @@ const mutations = {
     // Update userInfo
     state.dashboard.userInfo.tripCount += 1
     state.dashboard.userInfo.distance += newTrip.distance
-    let distinctDays = getDistinctDays(state.trips)
+    let distinctDays = getDistinctDays(state.dashboard.trips)
     state.dashboard.userInfo.days = distinctDays
-    // TODO - fails if scoreboard hasn't been loaded
-    // Update individuals
-    let userIndex = state.scoreboard.individuals.findIndex(function(obj) {
-      return obj.id === state.dashboard.userInfo.id
-    })
-    state.scoreboard.individuals[userIndex].distance += newTrip.distance
-    state.scoreboard.individuals[userIndex].days = distinctDays
-    // Update team
-    let teamIndex = state.scoreboard.teams.findIndex(function(obj) {
-      return obj.id === state.dashboard.userInfo.team
-    })
-    state.scoreboard.teams[teamIndex].distance += newTrip.distance
-    state.scoreboard.teams[teamIndex].avgDistance =
-      state.scoreboard.teams[teamIndex].distance / state.scoreboard.teams[teamIndex].memberCount
-    state.scoreboard.teams[teamIndex].avgDays += 1
-    // Can't calculate distinct days without the full list of trips for the team
   },
   [types.DELETE_TRIP](state, id) {
     let distanceDiff = 0
@@ -120,29 +105,11 @@ const mutations = {
       distanceDiff = elem.distance
       return elem.id === id
     })
-    let oldTrip = state.dashboard.trips[index]
     if (index > -1) {
       state.dashboard.userInfo.tripCount -= 1
       state.dashboard.trips.splice(index, 1)
       state.dashboard.userInfo.distance -= distanceDiff
       state.dashboard.userInfo.days = getDistinctDays(state.dashboard.trips)
-    }
-    // Update individuals
-    let userIndex = state.scoreboard.individuals.findIndex(function(obj) {
-      return obj.id === state.dashboard.userInfo.id
-    })
-    state.scoreboard.individuals[userIndex].distance -= oldTrip.distance
-    state.scoreboard.individuals[userIndex].days = getDistinctDays(state.dashboard.trips)
-    // Update team
-    let teamIndex = state.scoreboard.teams.findIndex(function(obj) {
-      return obj.id === state.dashboard.userInfo.team
-    })
-    if (teamIndex) {
-      state.scoreboard.teams[teamIndex].distance -= oldTrip.distance
-      state.scoreboard.teams[teamIndex].avgDistance =
-        state.scoreboard.teams[teamIndex].distance / state.scoreboard.teams[teamIndex].memberCount
-      state.scoreboard.teams[teamIndex].avgDays -= 1
-      // Can't calculate distinct days without the full list of trips for the team
     }
   }
 }

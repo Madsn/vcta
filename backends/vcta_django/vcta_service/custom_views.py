@@ -1,6 +1,7 @@
 from django.db.models.functions import Cast
 from drf_multiple_model.views import MultipleModelAPIView
-from rest_framework import permissions, generics
+from rest_framework import permissions, generics, exceptions, status
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
 from vcta_service.models import Trip
@@ -11,16 +12,30 @@ from django.utils.dateparse import parse_date
 from . import models
 
 
-class AddTrip(generics.CreateAPIView):
+class Trip(generics.CreateAPIView, generics.DestroyAPIView):
+    """
+    For creation and deletion of trips
+    create - creates trip, with the currently authenticated user as owner
+    delete - deletes trip, if the currently authenticated user is owner
+    """
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = TripSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         data = request.data
         new_trip = Trip.objects.create(distance=data["distance"], date=parse_date(data["date"]), user=request.user)
         new_trip.save()
         serializer = TripSerializer(new_trip)
         return Response(serializer.data)
+
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs["pk"]
+        trip = get_object_or_404(models.Trip, pk=pk)
+        if trip.user == request.user:
+            trip.delete()
+            return Response()
+        else:
+            return Response("Users can only delete own trips", status=status.HTTP_403_FORBIDDEN)
 
 
 class Dashboard(MultipleModelAPIView):
