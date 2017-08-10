@@ -1,12 +1,26 @@
 from django.db.models.functions import Cast
 from drf_multiple_model.views import MultipleModelAPIView
-from rest_framework import permissions
+from rest_framework import permissions, generics
+from rest_framework.response import Response
 
-from .serializers import TripSerializer, UserSerializer
-from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer
+from vcta_service.models import Trip
+from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer
 from django.db.models import Sum, Count, F, FloatField
+from django.utils.dateparse import parse_date
 
 from . import models
+
+
+class AddTrip(generics.CreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = TripSerializer
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        new_trip = Trip.objects.create(distance=data["distance"], date=parse_date(data["date"]), user=request.user)
+        new_trip.save()
+        serializer = TripSerializer(new_trip)
+        return Response(serializer.data)
 
 
 class Dashboard(MultipleModelAPIView):
@@ -21,8 +35,8 @@ class Dashboard(MultipleModelAPIView):
     def get(self, request, *args, **kwargs):
         user = request.user
         self.queryList = [
-            (models.Trip.objects.filter(user=user), TripSerializer, 'trips'),
-            (models.User.objects.filter(pk=user.id), UserSerializer, 'userInfo'),
+            (models.Trip.objects.filter(user=user), TripSerializer, "trips"),
+            (models.User.objects.filter(pk=user.id), UserSerializer, "userInfo"),
         ]
         return super(Dashboard, self).get(request, *args, **kwargs)
 

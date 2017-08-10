@@ -97,6 +97,7 @@ const mutations = {
     state.dashboard.userInfo.distance += newTrip.distance
     let distinctDays = getDistinctDays(state.trips)
     state.dashboard.userInfo.days = distinctDays
+    // TODO - fails if scoreboard hasn't been loaded
     // Update individuals
     let userIndex = state.scoreboard.individuals.findIndex(function(obj) {
       return obj.id === state.dashboard.userInfo.id
@@ -136,11 +137,13 @@ const mutations = {
     let teamIndex = state.scoreboard.teams.findIndex(function(obj) {
       return obj.id === state.dashboard.userInfo.team
     })
-    state.scoreboard.teams[teamIndex].distance -= oldTrip.distance
-    state.scoreboard.teams[teamIndex].avgDistance =
-      state.scoreboard.teams[teamIndex].distance / state.scoreboard.teams[teamIndex].memberCount
-    state.scoreboard.teams[teamIndex].avgDays -= 1
-    // Can't calculate distinct days without the full list of trips for the team
+    if (teamIndex) {
+      state.scoreboard.teams[teamIndex].distance -= oldTrip.distance
+      state.scoreboard.teams[teamIndex].avgDistance =
+        state.scoreboard.teams[teamIndex].distance / state.scoreboard.teams[teamIndex].memberCount
+      state.scoreboard.teams[teamIndex].avgDays -= 1
+      // Can't calculate distinct days without the full list of trips for the team
+    }
   }
 }
 
