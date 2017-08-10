@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: 'login',
@@ -56,7 +56,10 @@ export default {
   computed: {
     loginUsernameLabel: function() {
       return this.registering ? 'Username' : 'Username or email'
-    }
+    },
+    ...mapGetters({
+      authenticated: 'authenticated'
+    })
   },
   methods: {
     signUp: function() {

@@ -6,6 +6,10 @@
         </thead>
         <tbody>
           <tr>
+            <td>Username</td>
+            <td>{{userInfo.username}}</td>
+          </tr>
+          <tr>
             <td>Full name</td>
             <td>{{userInfo.fullName}}</td>
           </tr>

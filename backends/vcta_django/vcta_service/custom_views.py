@@ -21,8 +21,8 @@ class Dashboard(MultipleModelAPIView):
     def get(self, request, *args, **kwargs):
         user = request.user
         self.queryList = [
-            (models.Trip.objects.filter(user=user), TripSerializer),
-            (models.User.objects.filter(pk=user.id), UserSerializer),
+            (models.Trip.objects.filter(user=user), TripSerializer, 'trips'),
+            (models.User.objects.filter(pk=user.id), UserSerializer, 'userInfo'),
         ]
         return super(Dashboard, self).get(request, *args, **kwargs)
 

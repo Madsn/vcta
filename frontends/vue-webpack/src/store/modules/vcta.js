@@ -13,26 +13,12 @@ setAxiosToken()
 
 // initial state
 const state = {
-  trips: [
-    {
-      id: 1,
-      date: new Date('2015-05-01'),
-      distance: 5
-    },
-    {
-      id: 2,
-      date: new Date('2015-05-03'),
-      distance: 5
+  dashboard: {
+    loading: true,
+    trips: [
+    ],
+    userInfo: {
     }
-  ],
-  userInfo: {
-    id: 1,
-    fullName: 'John Smith',
-    name: 'John',
-    distance: 10,
-    tripCount: 2,
-    days: 2,
-    team: 1
   },
   scoreboard: {
     loading: true,
@@ -45,8 +31,7 @@ const state = {
 
 // getters
 const getters = {
-  trips: state => state.trips,
-  userInfo: state => state.userInfo,
+  dashboard: state => state.dashboard,
   scoreboard: state => state.scoreboard
 }
 
@@ -63,6 +48,16 @@ const actions = {
     axios.get('custom/scoreboard/').then((response) => {
       commit(types.SUCCESS_LOAD_SCOREBOARD, response.data)
     })
+  },
+  getDashboard({commit}) {
+    if (localStorage.getItem(AUTH_TOKEN)) {
+      axios.get('custom/dashboard/').then((response) => {
+        console.log(response)
+        commit(types.SUCCESS_LOAD_DASHBOARD, response.data)
+      })
+    } else {
+      console.error('Must be logged in first')
+    }
   },
   getAuthToken({commit}, credentials) {
     axios.post('obtain-auth-token/', credentials).then((response) => {
@@ -91,23 +86,26 @@ const mutations = {
   [types.SUCCESS_LOAD_SCOREBOARD](state, payload) {
     state.scoreboard = {loading: false, ...payload}
   },
+  [types.SUCCESS_LOAD_DASHBOARD](state, payload) {
+    state.dashboard = {loading: false, trips: payload.trips, userInfo: payload.userInfo[0]}
+  },
   [types.ADD_TRIP](state, payload) {
     const newTrip = {id: maxId++, ...payload}
-    state.trips.push(newTrip)
+    state.dashboard.trips.push(newTrip)
     // Update userInfo
-    state.userInfo.tripCount += 1
-    state.userInfo.distance += newTrip.distance
+    state.dashboard.userInfo.tripCount += 1
+    state.dashboard.userInfo.distance += newTrip.distance
     let distinctDays = getDistinctDays(state.trips)
-    state.userInfo.days = distinctDays
+    state.dashboard.userInfo.days = distinctDays
     // Update individuals
     let userIndex = state.scoreboard.individuals.findIndex(function(obj) {
-      return obj.id === state.userInfo.id
+      return obj.id === state.dashboard.userInfo.id
     })
     state.scoreboard.individuals[userIndex].distance += newTrip.distance
     state.scoreboard.individuals[userIndex].days = distinctDays
     // Update team
     let teamIndex = state.scoreboard.teams.findIndex(function(obj) {
-      return obj.id === state.userInfo.team
+      return obj.id === state.dashboard.userInfo.team
     })
     state.scoreboard.teams[teamIndex].distance += newTrip.distance
     state.scoreboard.teams[teamIndex].avgDistance =
@@ -117,26 +115,26 @@ const mutations = {
   },
   [types.DELETE_TRIP](state, id) {
     let distanceDiff = 0
-    const index = state.trips.findIndex(function(elem) {
+    const index = state.dashboard.trips.findIndex(function(elem) {
       distanceDiff = elem.distance
       return elem.id === id
     })
-    let oldTrip = state.trips[index]
+    let oldTrip = state.dashboard.trips[index]
     if (index > -1) {
-      state.userInfo.tripCount -= 1
-      state.trips.splice(index, 1)
-      state.userInfo.distance -= distanceDiff
-      state.userInfo.days = getDistinctDays(state.trips)
+      state.dashboard.userInfo.tripCount -= 1
+      state.dashboard.trips.splice(index, 1)
+      state.dashboard.userInfo.distance -= distanceDiff
+      state.dashboard.userInfo.days = getDistinctDays(state.dashboard.trips)
     }
     // Update individuals
     let userIndex = state.scoreboard.individuals.findIndex(function(obj) {
-      return obj.id === state.userInfo.id
+      return obj.id === state.dashboard.userInfo.id
     })
     state.scoreboard.individuals[userIndex].distance -= oldTrip.distance
-    state.scoreboard.individuals[userIndex].days = getDistinctDays(state.trips)
+    state.scoreboard.individuals[userIndex].days = getDistinctDays(state.dashboard.trips)
     // Update team
     let teamIndex = state.scoreboard.teams.findIndex(function(obj) {
-      return obj.id === state.userInfo.team
+      return obj.id === state.dashboard.userInfo.team
     })
     state.scoreboard.teams[teamIndex].distance -= oldTrip.distance
     state.scoreboard.teams[teamIndex].avgDistance =
