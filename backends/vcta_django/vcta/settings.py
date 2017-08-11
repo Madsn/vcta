@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_multiple_model',
     'corsheaders',
     'vcta_service',
@@ -70,9 +71,11 @@ ROOT_URLCONF = 'vcta.urls'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.AllowAny',
+        # Change this once defect is fixed: github.com/encode/django-rest-framework/issues/5198
     )
 }
 
