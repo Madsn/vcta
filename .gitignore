@@ -4,3 +4,5 @@ backends/spring-boot-kotlin/out/
 backends/vcta_django/.idea/
 .idea/serialmonitor_settings.xml
 .idea/workspace.xml
+.idea/
+vcta-vue.iml
