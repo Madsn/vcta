@@ -1,15 +1,5 @@
+import * as api from '../api'
 import * as types from '../mutation-types'
-import axios from 'axios'
-let AUTH_TOKEN = 'auth_token'
-
-axios.defaults.baseURL = 'http://localhost:8888/api/v1/'
-
-function setAxiosToken() {
-  if (localStorage.getItem(AUTH_TOKEN)) {
-    axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.getItem(AUTH_TOKEN)
-  }
-}
-setAxiosToken()
 
 // initial state
 const state = {
@@ -42,32 +32,23 @@ const actions = {
   },
   deleteTrip({commit}, id) {
     commit(types.DELETE_TRIP, id)
-    axios.delete('custom/trip/' + id)
+    api.deleteTrip(id)
   },
   getScoreboard({commit}) {
     commit(types.LOADING_SCOREBOARD)
-    axios.get('custom/scoreboard/').then((response) => {
+    api.getScoreboard().then((response) => {
       commit(types.SUCCESS_LOAD_SCOREBOARD, response.data)
     })
   },
   getDashboard({commit}) {
     if (localStorage.getItem(AUTH_TOKEN)) {
-      axios.get('custom/dashboard/').then((response) => {
+      api.getDashboard().then((response) => {
         console.log(response)
         commit(types.SUCCESS_LOAD_DASHBOARD, response.data)
       })
     } else {
       console.error('Must be logged in first')
     }
-  },
-  getAuthToken({commit}, credentials) {
-    axios.post('obtain-auth-token/', credentials).then((response) => {
-      localStorage.setItem(AUTH_TOKEN, response.data.token)
-      setAxiosToken()
-    }).catch((err) => {
-      console.error('Error getting auth token')
-      console.error(err)
-    })
   }
 }
 
