@@ -11,8 +11,7 @@ const getters = {
 }
 
 const actions = {
-  getAuthToken ({commit}, credentials) {
-    api.setAxiosToken()
+  getAuthToken({commit}, credentials) {
     return api.obtainAuthToken(credentials).then((response) => {
       commit(types.SET_AUTHENTICATED, {authenticated: true, token: response.data.token})
       return Promise.resolve(response)
@@ -21,20 +20,19 @@ const actions = {
       return Promise.reject(err)
     })
   },
-  logout ({commit}) {
+  logout({commit}) {
     commit(types.SET_AUTHENTICATED, {authenticated: false})
   }
 }
 
 const mutations = {
-  [types.SET_AUTHENTICATED] (state, payload) {
+  [types.SET_AUTHENTICATED](state, payload) {
     state.isAuthenticated = payload.authenticated
     if (payload.authenticated) {
       api.setAxiosToken(payload.token)
       state.token = payload.token
-      sessionStorage.setItem(api.AUTH_TOKEN, payload.token)
     } else {
-      sessionStorage.removeItem(api.AUTH_TOKEN)
+      api.clearAxiosToken()
       state.token = null
     }
   }
