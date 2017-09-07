@@ -69,7 +69,11 @@
         this.registering = true
       },
       login: function() {
+        const self = this
         this.getAuthToken({username: this.username, password: this.password})
+          .then(() => {
+            self.$router.push('/dashboard')
+          })
         this.registering = false
       },
       ...mapActions([

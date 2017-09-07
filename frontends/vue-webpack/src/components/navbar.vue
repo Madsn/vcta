@@ -13,7 +13,7 @@
         </b-nav>
         <b-nav is-nav-bar class="ml-auto">
           <b-nav-item to="/login" v-if="!isAuthenticated">Login</b-nav-item>
-          <b-nav-item v-if="isAuthenticated" @click="logout">Log out</b-nav-item>
+          <b-nav-item v-if="isAuthenticated" @click.native="triggerLogout">Log out</b-nav-item>
         </b-nav>
       </b-collapse>
     </div>
@@ -33,7 +33,11 @@
     methods: {
       ...mapActions([
         'logout'
-      ])
+      ]),
+      triggerLogout: function() {
+        this.logout()
+        this.$router.push('/')
+      }
     }
   }
 </script>
