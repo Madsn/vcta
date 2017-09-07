@@ -41,7 +41,7 @@ const actions = {
     })
   },
   getDashboard({commit}) {
-    if (localStorage.getItem(AUTH_TOKEN)) {
+    if (api.isAuthenticated()) {
       api.getDashboard().then((response) => {
         console.log(response)
         commit(types.SUCCESS_LOAD_DASHBOARD, response.data)

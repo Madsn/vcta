@@ -5,6 +5,7 @@ import dashboard from '@/pages/dashboard'
 import scoreboard from '@/pages/scoreboard'
 import rules from '@/pages/rules'
 import login from '@/pages/login'
+import auth from '../store/modules/auth'
 
 Vue.use(Router)
 
@@ -23,7 +24,15 @@ export default new Router({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: dashboard
+      component: dashboard,
+      beforeEnter: (to, from, next) => {
+        const authenticated = auth.state.isAuthenticated
+        if (authenticated) {
+          next()
+        } else {
+          next(login)
+        }
+      }
     },
     {
       path: '/scoreboard',
