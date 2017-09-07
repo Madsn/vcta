@@ -61,7 +61,7 @@
         return this.registering ? 'Username' : 'Username or email'
       },
       ...mapGetters({
-        authenticated: 'authenticated'
+        isAuthenticated: 'isAuthenticated'
       })
     },
     methods: {
