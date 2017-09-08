@@ -5,6 +5,7 @@ import dashboard from '@/pages/dashboard'
 import scoreboard from '@/pages/scoreboard'
 import rules from '@/pages/rules'
 import login from '@/pages/login'
+import user from '@/pages/user'
 import auth from '../store/modules/auth'
 
 Vue.use(Router)
@@ -43,6 +44,11 @@ export default new Router({
       path: '/rules',
       name: 'rules',
       component: rules
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: user
     }
   ]
 })
