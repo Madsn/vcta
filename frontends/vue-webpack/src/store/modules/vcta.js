@@ -16,13 +16,15 @@ const state = {
     ],
     teams: [
     ]
-  }
+  },
+  userpage: {}
 }
 
 // getters
 const getters = {
   dashboard: state => state.dashboard,
-  scoreboard: state => state.scoreboard
+  scoreboard: state => state.scoreboard,
+  userpage: state => state.userpage
 }
 
 // actions
@@ -49,6 +51,9 @@ const actions = {
     } else {
       console.error('Must be logged in first')
     }
+  },
+  getUser({commit}) {
+    commit(types.GET_USER)
   }
 }
 
@@ -92,6 +97,9 @@ const mutations = {
       state.dashboard.userInfo.distance -= distanceDiff
       state.dashboard.userInfo.days = getDistinctDays(state.dashboard.trips)
     }
+  },
+  [types.GET_USER](state, payload) {
+    state.userpage = {name: 'X'}
   }
 }
 
