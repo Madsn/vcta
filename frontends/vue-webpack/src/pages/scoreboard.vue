@@ -11,7 +11,7 @@
         </li>
       </b-nav>
     </nav>
-    <div class="d-flex justify-content-center" style="padding-top: 56px" v-if="scoreboard.loading" >
+    <div class="d-flex justify-content-center pt-5" v-if="scoreboard.loading" >
       <vue-spinner :loading="scoreboard.loading" :color="'#009dde'"></vue-spinner>
     </div>
     <div class="table-responsive" v-if="!scoreboard.loading">
