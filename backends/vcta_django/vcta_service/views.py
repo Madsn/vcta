@@ -61,13 +61,13 @@ class UserList(generics.ListCreateAPIView):
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly,)
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
 
 
 class ConfigList(generics.ListAPIView):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.DjangoModelPermissionsOrAnonReadOnly,)
     queryset = models.Config.objects.all()
     serializer_class = serializers.ConfigSerializer
 

@@ -17,7 +17,9 @@ const state = {
     teams: [
     ]
   },
-  userpage: {}
+  userpage: {
+    loading: true
+  }
 }
 
 // getters
@@ -45,7 +47,6 @@ const actions = {
   getDashboard({commit}) {
     if (api.isAuthenticated()) {
       api.getDashboard().then((response) => {
-        console.log(response)
         commit(types.SUCCESS_LOAD_DASHBOARD, response.data)
       })
     } else {
@@ -53,7 +54,10 @@ const actions = {
     }
   },
   getUser({commit}, id) {
-    commit(types.GET_USER, id)
+    commit(types.LOADING_USER)
+    api.getUserDetails(id).then((response) => {
+      commit(types.SUCCESS_LOAD_USER, response.data)
+    })
   }
 }
 
@@ -98,8 +102,11 @@ const mutations = {
       state.dashboard.userInfo.days = getDistinctDays(state.dashboard.trips)
     }
   },
-  [types.GET_USER](state, id) {
-    state.userpage = {key: id, name: 'X'}
+  [types.SUCCESS_LOAD_USER](state, payload) {
+    state.userpage = {loading: false, info: payload}
+  },
+  [types.LOADING_USER](state) {
+    state.userpage = {loading: true}
   }
 }
 

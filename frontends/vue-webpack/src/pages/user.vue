@@ -1,6 +1,11 @@
 <template>
   <div>
-    {{userpage.key}} - {{userpage.name}}
+    <div v-if="userpage.loading">
+      loading..
+    </div>
+    <div v-else>
+      {{userpage.info}}
+    </div>
   </div>
 </template>
 

@@ -44,3 +44,7 @@ export function getDashboard() {
 export function isAuthenticated() {
   return sessionStorage.getItem(AUTH_TOKEN)
 }
+
+export function getUserDetails(id) {
+  return axios.get(`user/${id}`)
+}
