@@ -61,7 +61,7 @@ class Scoreboard(MultipleModelAPIView):
     permission_classes = (permissions.AllowAny,)
 
     def get(self, request, *args, **kwargs):
-        users_query = models.User.objects.values("username", "team__name", "team") \
+        users_query = models.User.objects.values("id", "username", "team__name", "team") \
             .annotate(distance=Sum("trips__distance"),
                       days=Count("trips__date", distinct=True))
 

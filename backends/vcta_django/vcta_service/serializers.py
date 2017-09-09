@@ -43,6 +43,7 @@ class ScoreboardUserSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         pass
 
+    id = serializers.IntegerField()
     username = serializers.CharField()
     teamName = serializers.CharField(source="team__name")
     team = serializers.IntegerField()
