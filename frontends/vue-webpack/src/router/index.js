@@ -46,8 +46,8 @@ export default new Router({
       component: rules
     },
     {
-      path: '/user',
-      name: 'user',
+      path: '/user/:id',
+      name: 'userdetails',
       component: user
     }
   ]

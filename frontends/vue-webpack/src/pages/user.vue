@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{userpage}}
+    {{userpage.key}} - {{userpage.name}}
   </div>
 </template>
 
@@ -9,14 +9,13 @@
 
   export default {
     name: 'user',
-    props: [],
     computed: {
       ...mapGetters({
         userpage: 'userpage'
       })
     },
     mounted: function() {
-      this.getUser()
+      this.getUser(this.$route.params.id)
     },
     methods: {
       ...mapActions([

@@ -52,8 +52,8 @@ const actions = {
       console.error('Must be logged in first')
     }
   },
-  getUser({commit}) {
-    commit(types.GET_USER)
+  getUser({commit}, id) {
+    commit(types.GET_USER, id)
   }
 }
 
@@ -98,8 +98,8 @@ const mutations = {
       state.dashboard.userInfo.days = getDistinctDays(state.dashboard.trips)
     }
   },
-  [types.GET_USER](state, payload) {
-    state.userpage = {name: 'X'}
+  [types.GET_USER](state, id) {
+    state.userpage = {key: id, name: 'X'}
   }
 }
 
