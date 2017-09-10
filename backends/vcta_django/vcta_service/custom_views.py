@@ -4,12 +4,30 @@ from rest_framework import permissions, generics, exceptions, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
-from vcta_service.models import Trip
-from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer
+from vcta_service.models import Trip, User
+
+from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer, \
+    UserDetailsSerializer
 from django.db.models import Sum, Count, F, FloatField
 from django.utils.dateparse import parse_date
 
 from . import models
+
+
+class UserDetail(generics.RetrieveAPIView):
+
+    def get(self, request, *args, **kwargs):
+        pk = kwargs["pk"]
+        user = User.objects.filter(pk=pk) \
+            .values("id", "username", "full_name", "team__name", "team", "date_joined") \
+            .annotate(distance=Sum("trips__distance"),
+                      days=Count("trips__date", distinct=True),
+                      trip_count=Count("trips")).first()
+        if not user:
+            return Response("No user by that ID found", status=404)
+        else:
+            serializer = UserDetailsSerializer(user)
+            return Response(serializer.data)
 
 
 class Trip(generics.CreateAPIView, generics.DestroyAPIView):

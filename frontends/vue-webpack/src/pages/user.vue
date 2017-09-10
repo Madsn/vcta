@@ -6,14 +6,20 @@
       </div>
     </div>
     <div v-else>
-      {{userpage.info}}
+      <div class="row">
+        <div class="col-md-5">
+          <userstats header="Stats" :userInfo="userpage.info"></userstats>
+        </div>
+      </div>
     </div>
+    {{userpage.info}}
   </div>
 </template>
 
 <script>
   import {mapActions, mapGetters} from 'vuex'
   import PacmanLoader from 'vue-spinner/src/PacmanLoader'
+  import userstats from '../components/shared/userstats.vue'
 
   export default {
     name: 'user',
@@ -31,7 +37,8 @@
       ])
     },
     components: {
-      'vue-spinner': PacmanLoader
+      'vue-spinner': PacmanLoader,
+      userstats
     }
   }
 </script>

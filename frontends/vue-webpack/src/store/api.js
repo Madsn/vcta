@@ -46,5 +46,5 @@ export function isAuthenticated() {
 }
 
 export function getUserDetails(id) {
-  return axios.get(`user/${id}`)
+  return axios.get(`custom/user/${id}`)
 }

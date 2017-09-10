@@ -103,6 +103,7 @@ const mutations = {
     }
   },
   [types.SUCCESS_LOAD_USER](state, payload) {
+    console.log(payload)
     state.userpage = {loading: false, info: payload}
   },
   [types.LOADING_USER](state) {
