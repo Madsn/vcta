@@ -7,7 +7,7 @@
         <teaminvitations></teaminvitations>
       </div>
       <div class="col-md-7">
-        <tripscard :trips="dashboard.trips"></tripscard>
+        <tripscard :trips="dashboard.trips" :editable="true"></tripscard>
       </div>
     </div>
   </div>

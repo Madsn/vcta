@@ -8,11 +8,14 @@
     <div v-else>
       <div class="row">
         <div class="col-md-5">
-          <userstats header="Stats" :userInfo="userpage.info"></userstats>
+          <userstats header="Stats" :userInfo="userpage.userInfo"></userstats>
+        </div>
+        <div class="col-md-7">
+          <tripscard :trips="userpage.trips"></tripscard>
         </div>
       </div>
     </div>
-    {{userpage.info}}
+    {{userpage}}
   </div>
 </template>
 
@@ -20,6 +23,7 @@
   import {mapActions, mapGetters} from 'vuex'
   import PacmanLoader from 'vue-spinner/src/PacmanLoader'
   import userstats from '../components/shared/userstats.vue'
+  import tripscard from '../components/dashboard/tripscard.vue'
 
   export default {
     name: 'user',
@@ -29,16 +33,17 @@
       })
     },
     mounted: function() {
-      this.getUser(this.$route.params.id)
+      this.getUserDetails(this.$route.params.id)
     },
     methods: {
       ...mapActions([
-        'getUser'
+        'getUserDetails'
       ])
     },
     components: {
       'vue-spinner': PacmanLoader,
-      userstats
+      userstats,
+      tripscard
     }
   }
 </script>

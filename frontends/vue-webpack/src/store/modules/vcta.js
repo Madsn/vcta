@@ -53,7 +53,7 @@ const actions = {
       console.error('Must be logged in first')
     }
   },
-  getUser({commit}, id) {
+  getUserDetails({commit}, id) {
     commit(types.LOADING_USER)
     api.getUserDetails(id).then((response) => {
       commit(types.SUCCESS_LOAD_USER, response.data)
@@ -103,8 +103,8 @@ const mutations = {
     }
   },
   [types.SUCCESS_LOAD_USER](state, payload) {
-    console.log(payload)
-    state.userpage = {loading: false, info: payload}
+    const userInfo = payload.userInfo ? payload.userInfo[0] : {}
+    state.userpage = {loading: false, userInfo: userInfo, trips: payload.trips}
   },
   [types.LOADING_USER](state) {
     state.userpage = {loading: true}

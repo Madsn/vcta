@@ -51,6 +51,7 @@ class ScoreboardUserSerializer(serializers.Serializer):
     days = serializers.IntegerField()
 
 
+"""
 class UserDetailsSerializer(ScoreboardUserSerializer):
     def update(self, instance, validated_data):
         pass
@@ -61,6 +62,7 @@ class UserDetailsSerializer(ScoreboardUserSerializer):
     fullName = serializers.CharField(source="full_name")
     dateJoined = serializers.DateTimeField(source="date_joined")
     tripCount = serializers.IntegerField(source="trip_count")
+"""
 
 
 class ScoreboardTeamSerializer(serializers.Serializer):

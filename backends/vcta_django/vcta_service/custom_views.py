@@ -6,14 +6,14 @@ from rest_framework.response import Response
 
 from vcta_service.models import Trip, User
 
-from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer, \
-    UserDetailsSerializer
+from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer
 from django.db.models import Sum, Count, F, FloatField
 from django.utils.dateparse import parse_date
 
 from . import models
 
 
+"""
 class UserDetail(generics.RetrieveAPIView):
 
     def get(self, request, *args, **kwargs):
@@ -28,6 +28,7 @@ class UserDetail(generics.RetrieveAPIView):
         else:
             serializer = UserDetailsSerializer(user)
             return Response(serializer.data)
+"""
 
 
 class Trip(generics.CreateAPIView, generics.DestroyAPIView):
@@ -56,22 +57,30 @@ class Trip(generics.CreateAPIView, generics.DestroyAPIView):
             return Response("Users can only delete own trips", status=status.HTTP_403_FORBIDDEN)
 
 
-class Dashboard(MultipleModelAPIView):
+class UserDetails(MultipleModelAPIView):
     """
-    Gets data relevant for dashboard.
+    Gets data relevant for dashboard and user details page.
     Trips: Trips related to the current user
     User: Info about the current user
     """
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
     objectify = True
 
     def get(self, request, *args, **kwargs):
-        user = request.user
+        pk = kwargs["pk"]
+        user = User.objects.get(pk=pk)
         self.queryList = [
             (models.Trip.objects.filter(user=user), TripSerializer, "trips"),
             (models.User.objects.filter(pk=user.id), UserSerializer, "userInfo"),
         ]
-        return super(Dashboard, self).get(request, *args, **kwargs)
+        return super(UserDetails, self).get(request, *args, **kwargs)
+
+
+class Dashboard(UserDetails):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        return super(Dashboard, self).get(request, *args, pk=request.user.id, **kwargs)
 
 
 class Scoreboard(MultipleModelAPIView):
