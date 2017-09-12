@@ -123,7 +123,8 @@ const mutations = {
     state.teampage = {loading: true}
   },
   [types.SUCCESS_LOAD_TEAM](state, payload) {
-    state.teampage = {loading: true, ...payload}
+    const teamInfo = payload.teamInfo ? payload.teamInfo[0] : {}
+    state.teampage = {loading: true, teamInfo: teamInfo, members: payload.members}
   }
 }
 

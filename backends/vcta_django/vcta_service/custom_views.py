@@ -100,7 +100,7 @@ class TeamDetails(MultipleModelAPIView):
     def get(self, request, *args, **kwargs):
         pk = kwargs["pk"]
         self.queryList = [
-            (teams_query, ScoreboardTeamSerializer, "teamInfo"),
+            (teams_query.filter(pk=pk), ScoreboardTeamSerializer, "teamInfo"),
             (models.User.objects.filter(team=pk).values("id", "username"), UserNameAndIdSerializer, "members"),
         ]
         return super(TeamDetails, self).get(request, *args, **kwargs)
