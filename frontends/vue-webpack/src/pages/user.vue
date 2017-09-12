@@ -15,7 +15,6 @@
         </div>
       </div>
     </div>
-    {{userpage}}
   </div>
 </template>
 
@@ -23,7 +22,7 @@
   import {mapActions, mapGetters} from 'vuex'
   import PacmanLoader from 'vue-spinner/src/PacmanLoader'
   import userstats from '../components/shared/userstats.vue'
-  import tripscard from '../components/dashboard/tripscard.vue'
+  import tripscard from '../components/shared/tripscard.vue'
 
   export default {
     name: 'user',

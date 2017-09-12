@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import tripstable from '../shared/tripstable.vue'
-import addtripform from './addtripform.vue'
+import tripstable from './tripstable.vue'
+import addtripform from '../dashboard/addtripform.vue'
 
 export default {
   name: 'tripscard',

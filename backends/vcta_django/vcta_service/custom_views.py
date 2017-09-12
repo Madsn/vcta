@@ -18,9 +18,8 @@ teams_query = models.Team.objects \
     .annotate(distance=Sum("members__trips__distance"),
               memberCount=Count("members", distinct=True),
               days=Count("members__trips__date"),
-              avgDays=Cast(F("days"), FloatField())/Cast(F("memberCount"), FloatField()),
-              avgDistance=Cast(F("distance"), FloatField())/Cast(F("memberCount"), FloatField()))
-
+              avgDays=Cast(F("days"), FloatField()) / Cast(F("memberCount"), FloatField()),
+              avgDistance=Cast(F("distance"), FloatField()) / Cast(F("memberCount"), FloatField()))
 
 """
 class UserDetail(generics.RetrieveAPIView):
@@ -82,7 +81,9 @@ class UserDetails(MultipleModelAPIView):
             (models.Trip.objects.filter(user=user), TripSerializer, "trips"),
             (models.User.objects.filter(pk=user.id).values("id", "username", "team__name",
                                                            "team", "full_name", "date_joined",
-                                                           "email"), UserSerializer, "userInfo"),
+                                                           "email")
+             .annotate(distance=Sum("trips__distance"), days=Count("trips__date", distinct=True)),
+             UserSerializer, "userInfo")
         ]
         return super(UserDetails, self).get(request, *args, **kwargs)
 

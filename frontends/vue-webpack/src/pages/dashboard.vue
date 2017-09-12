@@ -16,7 +16,7 @@
 <script>
 import userstats from '../components/shared/userstats.vue'
 import teaminvitations from '../components/dashboard/teaminvitations.vue'
-import tripscard from '../components/dashboard/tripscard.vue'
+import tripscard from '../components/shared/tripscard.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
