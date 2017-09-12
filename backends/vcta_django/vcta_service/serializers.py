@@ -21,6 +21,17 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class UserNameAndIdSerializer(serializers.Serializer):
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
+    id = serializers.IntegerField()
+    username = serializers.CharField()
+
+
 class UserSerializer(serializers.Serializer):
     def create(self, validated_data):
         pass

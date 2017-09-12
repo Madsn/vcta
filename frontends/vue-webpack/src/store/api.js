@@ -48,3 +48,7 @@ export function isAuthenticated() {
 export function getUserDetails(id) {
   return axios.get(`custom/user/${id}`)
 }
+
+export function getTeamDetails(id) {
+  return axios.get(`custom/team/${id}`)
+}

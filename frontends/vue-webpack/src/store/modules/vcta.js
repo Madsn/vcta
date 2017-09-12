@@ -29,7 +29,8 @@ const state = {
 const getters = {
   dashboard: state => state.dashboard,
   scoreboard: state => state.scoreboard,
-  userpage: state => state.userpage
+  userpage: state => state.userpage,
+  teampage: state => state.teampage
 }
 
 // actions
@@ -64,6 +65,9 @@ const actions = {
   },
   getTeamDetails({commit}, id) {
     commit(types.LOADING_TEAM)
+    api.getTeamDetails(id).then((response) => {
+      commit(types.SUCCESS_LOAD_TEAM, response.data)
+    })
   }
 }
 
@@ -117,6 +121,9 @@ const mutations = {
   },
   [types.LOADING_TEAM](state) {
     state.teampage = {loading: true}
+  },
+  [types.SUCCESS_LOAD_TEAM](state, payload) {
+    state.teampage = {loading: true, ...payload}
   }
 }
 

@@ -6,11 +6,20 @@ from rest_framework.response import Response
 
 from vcta_service.models import Trip, User
 
-from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer
+from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer, \
+    UserNameAndIdSerializer
 from django.db.models import Sum, Count, F, FloatField
 from django.utils.dateparse import parse_date
 
 from . import models
+
+teams_query = models.Team.objects \
+    .values("id", "name", "captain", "captain__username") \
+    .annotate(distance=Sum("members__trips__distance"),
+              memberCount=Count("members", distinct=True),
+              days=Count("members__trips__date"),
+              avgDays=Cast(F("days"), FloatField())/Cast(F("memberCount"), FloatField()),
+              avgDistance=Cast(F("distance"), FloatField())/Cast(F("memberCount"), FloatField()))
 
 
 """
@@ -78,6 +87,24 @@ class UserDetails(MultipleModelAPIView):
         return super(UserDetails, self).get(request, *args, **kwargs)
 
 
+class TeamDetails(MultipleModelAPIView):
+    """
+    Gets data relevant for team details page.
+    teamInfo: Info about the requested team
+    members: Info about members of the team
+    """
+    permission_classes = (permissions.AllowAny,)
+    objectify = True
+
+    def get(self, request, *args, **kwargs):
+        pk = kwargs["pk"]
+        self.queryList = [
+            (teams_query, ScoreboardTeamSerializer, "teamInfo"),
+            (models.User.objects.filter(team=pk).values("id", "username"), UserNameAndIdSerializer, "members"),
+        ]
+        return super(TeamDetails, self).get(request, *args, **kwargs)
+
+
 class Dashboard(UserDetails):
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -96,14 +123,6 @@ class Scoreboard(MultipleModelAPIView):
         users_query = models.User.objects.values("id", "username", "team__name", "team") \
             .annotate(distance=Sum("trips__distance"),
                       days=Count("trips__date", distinct=True))
-
-        teams_query = models.Team.objects \
-            .values("id", "name", "captain", "captain__username") \
-            .annotate(distance=Sum("members__trips__distance"),
-                      memberCount=Count("members", distinct=True),
-                      days=Count("members__trips__date"),
-                      avgDays=Cast(F("days"), FloatField())/Cast(F("memberCount"), FloatField()),
-                      avgDistance=Cast(F("distance"), FloatField())/Cast(F("memberCount"), FloatField()))
 
         self.queryList = {
             (users_query, ScoreboardUserSerializer, 'individuals'),

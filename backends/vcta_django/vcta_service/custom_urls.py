@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^scoreboard/$', custom_views.Scoreboard.as_view(), name='scoreboard'),
     url(r'^trip/(?P<pk>\d+)$', custom_views.Trip.as_view(), name='trip'),
     url(r'^user/(?P<pk>\d+)$', custom_views.UserDetails.as_view(), name='userdetails'),
+    url(r'^team/(?P<pk>\d+)$', custom_views.TeamDetails.as_view(), name='teamdetails'),
 ]
