@@ -27,7 +27,7 @@
           </tr>
           <tr>
             <td>Team</td>
-            <td>{{userInfo.team}}</td>
+            <td><router-link :to="{name: 'teamdetails', params: {id: userInfo.team}}">{{userInfo.teamName}}</router-link></td>
           </tr>
         </tbody>
       </table>

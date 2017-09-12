@@ -71,7 +71,9 @@ class UserDetails(MultipleModelAPIView):
         user = User.objects.get(pk=pk)
         self.queryList = [
             (models.Trip.objects.filter(user=user), TripSerializer, "trips"),
-            (models.User.objects.filter(pk=user.id), UserSerializer, "userInfo"),
+            (models.User.objects.filter(pk=user.id).values("id", "username", "team__name",
+                                                           "team", "full_name", "date_joined",
+                                                           "email"), UserSerializer, "userInfo"),
         ]
         return super(UserDetails, self).get(request, *args, **kwargs)
 
@@ -80,6 +82,9 @@ class Dashboard(UserDetails):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
+        """
+        Gets userdetails for current user
+        """
         return super(Dashboard, self).get(request, *args, pk=request.user.id, **kwargs)
 
 

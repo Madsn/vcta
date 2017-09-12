@@ -6,6 +6,7 @@ import scoreboard from '@/pages/scoreboard'
 import rules from '@/pages/rules'
 import login from '@/pages/login'
 import user from '@/pages/user'
+import team from '@/pages/team'
 import auth from '../store/modules/auth'
 
 Vue.use(Router)
@@ -49,6 +50,11 @@ export default new Router({
       path: '/user/:id',
       name: 'userdetails',
       component: user
+    },
+    {
+      path: '/team/:id',
+      name: 'teamdetails',
+      component: team
     }
   ]
 })

@@ -21,13 +21,21 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.Serializer):
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
+    id = serializers.IntegerField()
+    username = serializers.CharField()
+    teamName = serializers.CharField(source="team__name")
+    team = serializers.IntegerField()
     fullName = serializers.CharField(source="full_name")
     dateJoined = serializers.DateTimeField(source="date_joined")
-
-    class Meta:
-        model = models.User
-        fields = ['id', 'username', 'fullName', 'email', 'team', 'dateJoined']
+    distance = serializers.IntegerField()
+    days = serializers.IntegerField()
 
 
 class ConfigSerializer(serializers.ModelSerializer):

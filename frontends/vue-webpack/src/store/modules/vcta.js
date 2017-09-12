@@ -19,6 +19,9 @@ const state = {
   },
   userpage: {
     loading: true
+  },
+  teampage: {
+    loading: true
   }
 }
 
@@ -58,6 +61,9 @@ const actions = {
     api.getUserDetails(id).then((response) => {
       commit(types.SUCCESS_LOAD_USER, response.data)
     })
+  },
+  getTeamDetails({commit}, id) {
+    commit(types.LOADING_TEAM)
   }
 }
 
@@ -108,6 +114,9 @@ const mutations = {
   },
   [types.LOADING_USER](state) {
     state.userpage = {loading: true}
+  },
+  [types.LOADING_TEAM](state) {
+    state.teampage = {loading: true}
   }
 }
 
