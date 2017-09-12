@@ -19,7 +19,7 @@
           </tr>
           <tr>
             <td>Number of trips</td>
-            <td>{{userInfo.tripCount}}</td>
+            <td>{{userInfo.trips}}</td>
           </tr>
           <tr>
             <td>Cycling days</td>

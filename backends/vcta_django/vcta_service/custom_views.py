@@ -82,7 +82,7 @@ class UserDetails(MultipleModelAPIView):
             (models.User.objects.filter(pk=user.id).values("id", "username", "team__name",
                                                            "team", "full_name", "date_joined",
                                                            "email")
-             .annotate(distance=Sum("trips__distance"), days=Count("trips__date", distinct=True)),
+             .annotate(distance=Sum("trips__distance"), days=Count("trips__date", distinct=True), trips=Count("trips")),
              UserSerializer, "userInfo")
         ]
         return super(UserDetails, self).get(request, *args, **kwargs)

@@ -47,6 +47,7 @@ class UserSerializer(serializers.Serializer):
     dateJoined = serializers.DateTimeField(source="date_joined")
     distance = serializers.IntegerField()
     days = serializers.IntegerField()
+    trips = serializers.IntegerField()
 
 
 class ConfigSerializer(serializers.ModelSerializer):
