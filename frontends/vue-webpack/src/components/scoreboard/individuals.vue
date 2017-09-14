@@ -15,7 +15,9 @@
       <td>
         <router-link :to="{name:'userdetails', params: { id: individual.id }}">{{individual.username}}</router-link>
       </td>
-      <td>{{individual.teamName}}</td>
+      <td>
+        <router-link :to="{name:'teamdetails', params: { id: individual.team }}">{{individual.teamName}}</router-link>
+      </td>
       <td>{{individual.distance}}</td>
       <td>{{individual.days}}</td>
     </tr>
