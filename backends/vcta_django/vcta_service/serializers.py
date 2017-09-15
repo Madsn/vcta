@@ -21,7 +21,7 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserNameAndIdSerializer(serializers.Serializer):
+class TeamMemberSerializer(serializers.Serializer):
     def create(self, validated_data):
         pass
 
@@ -30,6 +30,8 @@ class UserNameAndIdSerializer(serializers.Serializer):
 
     id = serializers.IntegerField()
     username = serializers.CharField()
+    distance = serializers.FloatField()
+    days = serializers.IntegerField()
 
 
 class UserSerializer(serializers.Serializer):
@@ -45,7 +47,7 @@ class UserSerializer(serializers.Serializer):
     team = serializers.IntegerField()
     fullName = serializers.CharField(source="full_name")
     dateJoined = serializers.DateTimeField(source="date_joined")
-    distance = serializers.IntegerField()
+    distance = serializers.FloatField()
     days = serializers.IntegerField()
     trips = serializers.IntegerField()
 

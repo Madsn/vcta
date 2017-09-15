@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from vcta_service.models import Trip, User
 
 from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer, \
-    UserNameAndIdSerializer
+    TeamMemberSerializer
 from django.db.models import Sum, Count, F, FloatField
 from django.utils.dateparse import parse_date
 
@@ -101,7 +101,9 @@ class TeamDetails(MultipleModelAPIView):
         pk = kwargs["pk"]
         self.queryList = [
             (teams_query.filter(pk=pk), ScoreboardTeamSerializer, "teamInfo"),
-            (models.User.objects.filter(team=pk).values("id", "username"), UserNameAndIdSerializer, "members"),
+            (models.User.objects.filter(team=pk).values("id", "username")
+             .annotate(distance=Sum("trips__distance"), days=Count("trips__date", distinct=True)),
+             TeamMemberSerializer, "members"),
         ]
         return super(TeamDetails, self).get(request, *args, **kwargs)
 
