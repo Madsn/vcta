@@ -57,7 +57,7 @@
   }
 
   ul.navbar-nav li.nav-item > a.nav-link {
-    padding: 18px 16px 18px 16px;
+    padding: 19px 16px 19px 16px;
 
     &.active {
       color: #fff;
