@@ -73,11 +73,19 @@ class Team(models.Model):
 def captain_must_be_member(sender, instance, **kwargs):
     captain = instance.captain
     if captain.team != instance:
-        print("Setting captain")
         captain.team = instance
         captain.save()
-    else:
-        print("Captain already set")
+
+
+class Invitation(models.Model):
+    """
+    Represents an invitation to join a team.
+    """
+    team = models.ForeignKey(Team, related_name="invitations")
+    recipient = models.ForeignKey(User, related_name="invitations")
+
+    def __str__(self):
+        return self.team.name + " : " + self.recipient.username
 
 
 def validate_only_one_instance(obj):
