@@ -4,10 +4,10 @@ from rest_framework import permissions, generics, exceptions, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
-from vcta_service.models import Trip, User
+from vcta_service.models import Trip, User, Invitation
 
 from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer, \
-    TeamMemberSerializer
+    TeamMemberSerializer, InvitationSerializer
 from django.db.models import Sum, Count, F, FloatField
 from django.utils.dateparse import parse_date
 
@@ -20,23 +20,6 @@ teams_query = models.Team.objects \
               days=Count("members__trips__date"),
               avgDays=Cast(F("days"), FloatField()) / Cast(F("memberCount"), FloatField()),
               avgDistance=Cast(F("distance"), FloatField()) / Cast(F("memberCount"), FloatField()))
-
-"""
-class UserDetail(generics.RetrieveAPIView):
-
-    def get(self, request, *args, **kwargs):
-        pk = kwargs["pk"]
-        user = User.objects.filter(pk=pk) \
-            .values("id", "username", "full_name", "team__name", "team", "date_joined") \
-            .annotate(distance=Sum("trips__distance"),
-                      days=Count("trips__date", distinct=True),
-                      trip_count=Count("trips")).first()
-        if not user:
-            return Response("No user by that ID found", status=404)
-        else:
-            serializer = UserDetailsSerializer(user)
-            return Response(serializer.data)
-"""
 
 
 class Trip(generics.CreateAPIView, generics.DestroyAPIView):
@@ -63,6 +46,19 @@ class Trip(generics.CreateAPIView, generics.DestroyAPIView):
             return Response()
         else:
             return Response("Users can only delete own trips", status=status.HTTP_403_FORBIDDEN)
+
+
+class Invitations(generics.ListAPIView):
+    """
+    Gets invitations with currently authenticated user as recipient
+    """
+    permissions_classes = (permissions.IsAuthenticated,)
+    serializer_class = InvitationSerializer
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Invitation.objects.filter(recipient=request.user).values("id", "team", "recipient",
+                                                                                 "team__name", "recipient__username")
+        return super(Invitations, self).get(request, *args, **kwargs)
 
 
 class UserDetails(MultipleModelAPIView):
