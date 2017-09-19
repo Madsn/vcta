@@ -52,3 +52,7 @@ export function getUserDetails(id) {
 export function getTeamDetails(id) {
   return axios.get(`custom/team/${id}`)
 }
+
+export function getInvitations() {
+  return axios.get(`custom/invitations/`)
+}

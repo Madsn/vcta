@@ -22,7 +22,8 @@ const state = {
   },
   teampage: {
     loading: true
-  }
+  },
+  invitations: []
 }
 
 // getters
@@ -30,7 +31,8 @@ const getters = {
   dashboard: state => state.dashboard,
   scoreboard: state => state.scoreboard,
   userpage: state => state.userpage,
-  teampage: state => state.teampage
+  teampage: state => state.teampage,
+  invitations: state => state.invitations
 }
 
 // actions
@@ -67,6 +69,12 @@ const actions = {
     commit(types.LOADING_TEAM)
     api.getTeamDetails(id).then((response) => {
       commit(types.SUCCESS_LOAD_TEAM, response.data)
+    })
+  },
+  getInvitations({commit}) {
+    commit(types.LOADING_INVITATIONS)
+    api.getInvitations().then((response) => {
+      commit(types.SUCCESS_LOAD_INVITATIONS)
     })
   }
 }
