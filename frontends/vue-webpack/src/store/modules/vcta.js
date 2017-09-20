@@ -74,7 +74,7 @@ const actions = {
   getInvitations({commit}) {
     commit(types.LOADING_INVITATIONS)
     api.getInvitations().then((response) => {
-      commit(types.SUCCESS_LOAD_INVITATIONS)
+      commit(types.SUCCESS_LOAD_INVITATIONS, response.data)
     })
   }
 }
@@ -133,6 +133,12 @@ const mutations = {
   [types.SUCCESS_LOAD_TEAM](state, payload) {
     const teamInfo = payload.teamInfo ? payload.teamInfo[0] : {}
     state.teampage = {loading: false, teamInfo: teamInfo, members: payload.members}
+  },
+  [types.LOADING_INVITATIONS](state) {
+  },
+  [types.SUCCESS_LOAD_INVITATIONS](state, payload) {
+    console.log(payload)
+    state.invitations = payload
   }
 }
 

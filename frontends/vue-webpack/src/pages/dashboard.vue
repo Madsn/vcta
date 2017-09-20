@@ -27,7 +27,7 @@ export default {
     })
   },
   created() {
-    this.$store.dispatch('getDashboard')
+    this.getDashboard()
   },
   methods: {
     ...mapActions([
