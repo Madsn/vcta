@@ -117,3 +117,17 @@ class InvitationSerializer(serializers.Serializer):
     recipient = serializers.IntegerField()
     teamName = serializers.CharField(source="team__name")
     recipientUsername = serializers.CharField(source="recipient__username")
+
+
+class TeamRequestSerializer(serializers.Serializer):
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
+    id = serializers.IntegerField()
+    team = serializers.IntegerField()
+    sender = serializers.IntegerField()
+    teamName = serializers.CharField(source="team__name")
+    senderUsername = serializers.CharField(source="sender__username")

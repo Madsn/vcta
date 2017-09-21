@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from vcta_service.models import Trip, User, Invitation
 
 from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer, \
-    TeamMemberSerializer, InvitationSerializer
+    TeamMemberSerializer, InvitationSerializer, TeamRequestSerializer
 from django.db.models import Sum, Count, F, FloatField
 from django.utils.dateparse import parse_date
 
@@ -59,6 +59,19 @@ class Invitations(generics.ListAPIView):
         self.queryset = Invitation.objects.filter(recipient=request.user).values("id", "team", "recipient",
                                                                                  "team__name", "recipient__username")
         return super(Invitations, self).get(request, *args, **kwargs)
+
+
+class TeamRequests(generics.ListAPIView):
+    """
+    Gets requests with currently authenticated user as sender
+    """
+    permissions_classes = (permissions.IsAuthenticated,)
+    serializer_class = TeamRequestSerializer
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = TeamRequests.objects.filter(sender=request.user).values("id", "team", "sender",
+                                                                                 "team__name", "sender__username")
+        return super(TeamRequests, self).get(request, *args, **kwargs)
 
 
 class UserDetails(MultipleModelAPIView):

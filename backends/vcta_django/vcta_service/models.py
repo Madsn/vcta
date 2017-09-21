@@ -77,6 +77,14 @@ def captain_must_be_member(sender, instance, **kwargs):
         captain.save()
 
 
+class TeamJoinRequest(models.Model):
+    """
+    Represents a request by a user to join a team
+    """
+    team = models.ForeignKey(Team, related_name="membership_requests")
+    sender = models.ForeignKey(User, related_name="team_requests")
+
+
 class Invitation(models.Model):
     """
     Represents an invitation to join a team.
