@@ -6,7 +6,6 @@ from . import custom_views
 app_name = 'vcta_service_custom'
 urlpatterns = [
     url(r'^dashboard/$', custom_views.Dashboard.as_view(), name='dashboard'),
-    url(r'^invitations/$', custom_views.Invitations.as_view(), name='invitations'),
     url(r'^teamrequests/$', custom_views.TeamRequests.as_view(), name='teamrequests'),
     url(r'^scoreboard/$', custom_views.Scoreboard.as_view(), name='scoreboard'),
     url(r'^trip/(?P<pk>\d+)$', custom_views.Trip.as_view(), name='trip'),

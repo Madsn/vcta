@@ -4,10 +4,10 @@ from rest_framework import permissions, generics, exceptions, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
-from vcta_service.models import Trip, User, Invitation
+from vcta_service.models import Trip, User, TeamJoinRequest
 
 from .serializers import ScoreboardUserSerializer, ScoreboardTeamSerializer, TripSerializer, UserSerializer, \
-    TeamMemberSerializer, InvitationSerializer, TeamRequestSerializer
+    TeamMemberSerializer, TeamRequestSerializer
 from django.db.models import Sum, Count, F, FloatField
 from django.utils.dateparse import parse_date
 
@@ -48,19 +48,6 @@ class Trip(generics.CreateAPIView, generics.DestroyAPIView):
             return Response("Users can only delete own trips", status=status.HTTP_403_FORBIDDEN)
 
 
-class Invitations(generics.ListAPIView):
-    """
-    Gets invitations with currently authenticated user as recipient
-    """
-    permissions_classes = (permissions.IsAuthenticated,)
-    serializer_class = InvitationSerializer
-
-    def get(self, request, *args, **kwargs):
-        self.queryset = Invitation.objects.filter(recipient=request.user).values("id", "team", "recipient",
-                                                                                 "team__name", "recipient__username")
-        return super(Invitations, self).get(request, *args, **kwargs)
-
-
 class TeamRequests(generics.ListAPIView):
     """
     Gets requests with currently authenticated user as sender
@@ -70,7 +57,7 @@ class TeamRequests(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         self.queryset = TeamRequests.objects.filter(sender=request.user).values("id", "team", "sender",
-                                                                                 "team__name", "sender__username")
+                                                                                "team__name", "sender__username")
         return super(TeamRequests, self).get(request, *args, **kwargs)
 
 

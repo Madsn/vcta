@@ -1,21 +1,19 @@
 <template>
-  <b-card header="Team invitations">
-    <p v-if="!invitations">You currently have no team invitations</p>
+  <b-card header="Team membership requests">
+    <p v-if="!requests">You currently have no pending team membership requests</p>
     <table class="table table-striped" v-else>
       <thead>
       <tr>
         <th></th>
         <th>Team</th>
-        <th></th>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(invitation, index) in invitations" v-bind:key="invitation.id">
+      <tr v-for="(request, index) in requests" v-bind:key="request.id">
         <td>{{index + 1}}</td>
         <td>
-          <router-link :to="{name: 'teamdetails', params: {id: invitation.team}}">{{invitation.teamName}}</router-link>
+          <router-link :to="{name: 'teamdetails', params: {id: request.team}}">{{request.teamName}}</router-link>
         </td>
-        <td>Accept - Reject (TODO)</td>
       </tr>
       </tbody>
     </table>
@@ -26,18 +24,18 @@
   import {mapGetters, mapActions} from 'vuex'
 
   export default {
-    name: 'teaminvitations',
+    name: 'teamrequests',
     computed: {
       ...mapGetters({
-        invitations: 'invitations'
+        requests: 'requests'
       })
     },
     created() {
-      this.getInvitations()
+      this.getTeamMembershipRequests()
     },
     methods: {
       ...mapActions([
-        'getInvitations'
+        'getTeamMembershipRequests'
       ])
     }
   }

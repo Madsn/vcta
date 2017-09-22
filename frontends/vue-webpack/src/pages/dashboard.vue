@@ -4,7 +4,7 @@
     <div class="row" v-if="!dashboard.loading">
       <div class="col-md-5">
         <userstats header="My Stats" :userInfo="dashboard.userInfo"></userstats>
-        <teaminvitations></teaminvitations>
+        <teamrequests></teamrequests>
       </div>
       <div class="col-md-7">
         <tripscard :trips="dashboard.trips" :editable="true"></tripscard>
@@ -15,7 +15,7 @@
 
 <script>
 import userstats from '../components/shared/userstats.vue'
-import teaminvitations from '../components/dashboard/teaminvitations.vue'
+import teamrequests from '../components/dashboard/teamrequests.vue'
 import tripscard from '../components/shared/tripscard.vue'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -36,7 +36,7 @@ export default {
   },
   components: {
     userstats,
-    teaminvitations,
+    teamrequests,
     tripscard
   }
 }

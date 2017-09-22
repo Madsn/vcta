@@ -85,17 +85,6 @@ class TeamJoinRequest(models.Model):
     sender = models.ForeignKey(User, related_name="team_requests")
 
 
-class Invitation(models.Model):
-    """
-    Represents an invitation to join a team.
-    """
-    team = models.ForeignKey(Team, related_name="invitations")
-    recipient = models.ForeignKey(User, related_name="invitations")
-
-    def __str__(self):
-        return self.team.name + " : " + self.recipient.username
-
-
 def validate_only_one_instance(obj):
     model = obj.__class__
     if (model.objects.count() > 0 and

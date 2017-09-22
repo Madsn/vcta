@@ -105,20 +105,6 @@ class ScoreboardTeamSerializer(serializers.Serializer):
     avgDistance = serializers.FloatField()
 
 
-class InvitationSerializer(serializers.Serializer):
-    def create(self, validated_data):
-        pass
-
-    def update(self, instance, validated_data):
-        pass
-
-    id = serializers.IntegerField()
-    team = serializers.IntegerField()
-    recipient = serializers.IntegerField()
-    teamName = serializers.CharField(source="team__name")
-    recipientUsername = serializers.CharField(source="recipient__username")
-
-
 class TeamRequestSerializer(serializers.Serializer):
     def create(self, validated_data):
         pass

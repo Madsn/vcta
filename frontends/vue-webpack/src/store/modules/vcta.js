@@ -23,7 +23,7 @@ const state = {
   teampage: {
     loading: true
   },
-  invitations: []
+  requests: []
 }
 
 // getters
@@ -32,7 +32,7 @@ const getters = {
   scoreboard: state => state.scoreboard,
   userpage: state => state.userpage,
   teampage: state => state.teampage,
-  invitations: state => state.invitations
+  requests: state => state.requests
 }
 
 // actions
@@ -71,10 +71,10 @@ const actions = {
       commit(types.SUCCESS_LOAD_TEAM, response.data)
     })
   },
-  getInvitations({commit}) {
-    commit(types.LOADING_INVITATIONS)
-    api.getInvitations().then((response) => {
-      commit(types.SUCCESS_LOAD_INVITATIONS, response.data)
+  getTeamMembershipRequests({commit}) {
+    commit(types.LOADING_MEMBERSHIP_REQUESTS)
+    api.getTeamMembershipRequests().then((response) => {
+      commit(types.SUCCESS_LOAD_MEMBERSHIP_REQUESTS, response.data)
     })
   }
 }
@@ -134,9 +134,9 @@ const mutations = {
     const teamInfo = payload.teamInfo ? payload.teamInfo[0] : {}
     state.teampage = {loading: false, teamInfo: teamInfo, members: payload.members}
   },
-  [types.LOADING_INVITATIONS](state) {
+  [types.LOADING_MEMBERSHIP_REQUESTS](state) {
   },
-  [types.SUCCESS_LOAD_INVITATIONS](state, payload) {
+  [types.SUCCESS_LOAD_MEMBERSHIP_REQUESTS](state, payload) {
     console.log(payload)
     state.invitations = payload
   }
