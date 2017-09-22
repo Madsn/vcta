@@ -23,7 +23,10 @@ const state = {
   teampage: {
     loading: true
   },
-  requests: []
+  requests: {
+    loading: true,
+    list: []
+  }
 }
 
 // getters
@@ -50,11 +53,14 @@ const actions = {
       commit(types.SUCCESS_LOAD_SCOREBOARD, response.data)
     })
   },
-  getDashboard({commit}) {
+  getDashboard(store) {
+    console.log(store)
     if (api.isAuthenticated()) {
+      store.commit(types.LOADING_DASHBOARD)
       api.getDashboard().then((response) => {
-        commit(types.SUCCESS_LOAD_DASHBOARD, response.data)
+        store.commit(types.SUCCESS_LOAD_DASHBOARD, response.data)
       })
+      store.dispatch('getTeamMembershipRequests')
     } else {
       console.error('Must be logged in first')
     }
@@ -92,11 +98,16 @@ const mutations = {
   [types.LOADING_SCOREBOARD](state) {
     state.scoreboard.loading = true
   },
-  [types.SUCCESS_LOAD_SCOREBOARD](state, payload) {
-    state.scoreboard = {loading: false, ...payload}
+  [types.SUCCESS_LOAD_SCOREBOARD](state, data) {
+    state.scoreboard = {loading: false, ...data}
   },
-  [types.SUCCESS_LOAD_DASHBOARD](state, payload) {
-    state.dashboard = {loading: false, trips: payload.trips, userInfo: payload.userInfo[0]}
+  [types.LOADING_DASHBOARD](state) {
+    state.dashboard.loading = true
+  },
+  [types.SUCCESS_LOAD_DASHBOARD](state, data) {
+    state.dashboard.loading = false
+    state.dashboard.trips = data.trips
+    state.dashboard.userInfo = data.userInfo[0]
   },
   [types.ADD_TRIP](state, payload) {
     const newTrip = {id: maxId++, ...payload}
@@ -120,9 +131,9 @@ const mutations = {
       state.dashboard.userInfo.days = getDistinctDays(state.dashboard.trips)
     }
   },
-  [types.SUCCESS_LOAD_USER](state, payload) {
-    const userInfo = payload.userInfo ? payload.userInfo[0] : {}
-    state.userpage = {loading: false, userInfo: userInfo, trips: payload.trips}
+  [types.SUCCESS_LOAD_USER](state, data) {
+    const userInfo = data.userInfo ? data.userInfo[0] : {}
+    state.userpage = {loading: false, userInfo: userInfo, trips: data.trips}
   },
   [types.LOADING_USER](state) {
     state.userpage = {loading: true}
@@ -130,15 +141,16 @@ const mutations = {
   [types.LOADING_TEAM](state) {
     state.teampage = {loading: true}
   },
-  [types.SUCCESS_LOAD_TEAM](state, payload) {
-    const teamInfo = payload.teamInfo ? payload.teamInfo[0] : {}
-    state.teampage = {loading: false, teamInfo: teamInfo, members: payload.members}
+  [types.SUCCESS_LOAD_TEAM](state, data) {
+    const teamInfo = data.teamInfo ? data.teamInfo[0] : {}
+    state.teampage = {loading: false, teamInfo: teamInfo, members: data.members}
   },
   [types.LOADING_MEMBERSHIP_REQUESTS](state) {
+    state.requests.loading = true
   },
-  [types.SUCCESS_LOAD_MEMBERSHIP_REQUESTS](state, payload) {
-    console.log(payload)
-    state.invitations = payload
+  [types.SUCCESS_LOAD_MEMBERSHIP_REQUESTS](state, data) {
+    state.requests.loading = false
+    state.requests.list = data
   }
 }
 

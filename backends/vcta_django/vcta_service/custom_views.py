@@ -56,8 +56,8 @@ class TeamRequests(generics.ListAPIView):
     serializer_class = TeamRequestSerializer
 
     def get(self, request, *args, **kwargs):
-        self.queryset = TeamRequests.objects.filter(sender=request.user).values("id", "team", "sender",
-                                                                                "team__name", "sender__username")
+        self.queryset = TeamJoinRequest.objects.filter(sender=request.user)\
+            .values("id", "team", "sender", "created_at", "team__name", "sender__username")
         return super(TeamRequests, self).get(request, *args, **kwargs)
 
 

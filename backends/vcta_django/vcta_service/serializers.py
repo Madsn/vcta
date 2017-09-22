@@ -115,5 +115,6 @@ class TeamRequestSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     team = serializers.IntegerField()
     sender = serializers.IntegerField()
+    createdAt = serializers.DateTimeField(source="created_at")
     teamName = serializers.CharField(source="team__name")
     senderUsername = serializers.CharField(source="sender__username")
