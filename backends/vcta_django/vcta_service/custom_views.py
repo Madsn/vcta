@@ -75,7 +75,7 @@ class UserDetails(MultipleModelAPIView):
         user = User.objects.get(pk=pk)
         self.queryList = [
             (models.Trip.objects.filter(user=user), TripSerializer, "trips"),
-            (models.User.objects.filter(pk=user.id).values("id", "username", "team__name",
+            (models.User.objects.filter(pk=user.id).values("id", "username", "team__name", "team__captain",
                                                            "team", "full_name", "date_joined",
                                                            "email")
              .annotate(distance=Sum("trips__distance"), days=Count("trips__date", distinct=True), trips=Count("trips")),

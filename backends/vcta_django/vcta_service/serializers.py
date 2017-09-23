@@ -44,6 +44,7 @@ class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     username = serializers.CharField()
     teamName = serializers.CharField(source="team__name")
+    teamCaptain = serializers.IntegerField(source="team__captain")
     team = serializers.IntegerField()
     fullName = serializers.CharField(source="full_name")
     dateJoined = serializers.DateTimeField(source="date_joined")

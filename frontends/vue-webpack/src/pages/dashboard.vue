@@ -5,6 +5,8 @@
       <div class="col-md-5">
         <userstats header="My Stats" :userInfo="dashboard.userInfo"></userstats>
         <teamrequests></teamrequests>
+        <div v-if="isTeamCaptain">is team captain</div>
+        <div v-else>is not team captain</div>
       </div>
       <div class="col-md-7">
         <tripscard :trips="dashboard.trips" :editable="true"></tripscard>
@@ -24,7 +26,11 @@ export default {
   computed: {
     ...mapGetters({
       dashboard: 'dashboard'
-    })
+    }),
+    isTeamCaptain: function() {
+      return this.dashboard.userInfo.teamCaptain !== null &&
+        this.dashboard.userInfo.teamCaptain === this.dashboard.userInfo.id
+    }
   },
   created() {
     this.getDashboard()
