@@ -35,7 +35,11 @@ const getters = {
   scoreboard: state => state.scoreboard,
   userpage: state => state.userpage,
   teampage: state => state.teampage,
-  requests: state => state.requests
+  requests: state => state.requests,
+  isTeamCaptain: state => {
+    return state.dashboard.userInfo.teamCaptain !== null &&
+      state.dashboard.userInfo.id === state.dashboard.userInfo.teamCaptain
+  }
 }
 
 // actions

@@ -5,8 +5,7 @@
       <div class="col-md-5">
         <userstats header="My Stats" :userInfo="dashboard.userInfo"></userstats>
         <teamrequests></teamrequests>
-        <div v-if="isTeamCaptain">is team captain</div>
-        <div v-else>is not team captain</div>
+        <teammanagement></teammanagement>
       </div>
       <div class="col-md-7">
         <tripscard :trips="dashboard.trips" :editable="true"></tripscard>
@@ -18,6 +17,7 @@
 <script>
 import userstats from '../components/shared/userstats.vue'
 import teamrequests from '../components/dashboard/teamrequests.vue'
+import teammanagement from '../components/dashboard/teammanagement.vue'
 import tripscard from '../components/shared/tripscard.vue'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -26,11 +26,7 @@ export default {
   computed: {
     ...mapGetters({
       dashboard: 'dashboard'
-    }),
-    isTeamCaptain: function() {
-      return this.dashboard.userInfo.teamCaptain !== null &&
-        this.dashboard.userInfo.teamCaptain === this.dashboard.userInfo.id
-    }
+    })
   },
   created() {
     this.getDashboard()
@@ -43,7 +39,8 @@ export default {
   components: {
     userstats,
     teamrequests,
-    tripscard
+    tripscard,
+    teammanagement
   }
 }
 </script>
