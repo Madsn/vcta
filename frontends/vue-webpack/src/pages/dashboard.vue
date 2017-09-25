@@ -4,11 +4,11 @@
     <div class="row" v-if="!dashboard.loading">
       <div class="col-md-5">
         <userstats header="My Stats" :userInfo="dashboard.userInfo"></userstats>
-        <teamrequests></teamrequests>
-        <teammanagement></teammanagement>
+        <teamrequests header="Sent team requests" :requests="requests"></teamrequests>
       </div>
       <div class="col-md-7">
         <tripscard :trips="dashboard.trips" :editable="true"></tripscard>
+        <teammanagement></teammanagement>
       </div>
     </div>
   </div>
@@ -25,7 +25,8 @@ export default {
   name: 'dashboard',
   computed: {
     ...mapGetters({
-      dashboard: 'dashboard'
+      dashboard: 'dashboard',
+      requests: 'requests'
     })
   },
   created() {

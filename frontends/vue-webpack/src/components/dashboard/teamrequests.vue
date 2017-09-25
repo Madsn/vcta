@@ -1,5 +1,5 @@
 <template>
-  <b-card header="Team membership requests">
+  <b-card :header="header">
     <table class="table table-striped" v-if="requests.list && requests.list.length > 0">
       <thead>
       <tr>
@@ -21,15 +21,12 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
-
   export default {
     name: 'teamrequests',
-    computed: {
-      ...mapGetters({
-        requests: 'requests'
-      })
-    }
+    props: [
+      'header',
+      'requests'
+    ]
   }
 </script>
 
