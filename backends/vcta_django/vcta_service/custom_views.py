@@ -1,4 +1,5 @@
 from django.db.models.functions import Cast
+from django.http import HttpResponseForbidden
 from drf_multiple_model.views import MultipleModelAPIView
 from rest_framework import permissions, generics, exceptions, status
 from rest_framework.generics import get_object_or_404
@@ -59,6 +60,25 @@ class TeamRequests(generics.ListAPIView):
         self.queryset = TeamJoinRequest.objects.filter(sender=request.user)\
             .values("id", "team", "sender", "created_at", "team__name", "sender__username")
         return super(TeamRequests, self).get(request, *args, **kwargs)
+
+
+class TeamRequestsForTeam(generics.ListAPIView):
+    """
+    Gets requests for a specific team
+    Only Captain should be able to get requests for his team
+    """
+    permissions_classes = (permissions.IsAuthenticated,)
+    serializer_class = TeamRequestSerializer
+
+    def get(self, request, *args, **kwargs):
+        current_user_team = request.user.team
+        team_captain = current_user_team.captain
+        if team_captain.id != request.user.id:
+            raise HttpResponseForbidden
+        pk = kwargs["pk"]
+        self.queryset = TeamJoinRequest.objects.filter(team=pk) \
+            .values("id", "team", "sender", "created_at", "team__name", "sender__username")
+        return super(TeamRequestsForTeam, self).get(request, *args, **kwargs)
 
 
 class UserDetails(MultipleModelAPIView):

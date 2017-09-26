@@ -53,6 +53,10 @@ export function getTeamDetails(id) {
   return axios.get(`custom/team/${id}`)
 }
 
-export function getTeamMembershipRequests() {
-  return axios.get(`custom/teamrequests/`)
+export function getTeamMembershipRequestsForCurrentUser() {
+  return axios.get(`custom/membershiprequests/`)
 }
+
+export function getTeamMembershipRequestsForTeam(teamId) {
+  return axios.get(`custom/membershiprequests/team/${teamId}`)
+})

@@ -14,7 +14,7 @@
       ...mapGetters({
         isTeamCaptain: 'isTeamCaptain',
         // TODO - replace with requests for the team, not the user
-        requests: 'requests'
+        requestsForTeam: 'requestsForTeam'
       })
     },
     components: {

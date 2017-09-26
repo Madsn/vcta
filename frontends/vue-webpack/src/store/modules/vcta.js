@@ -36,6 +36,7 @@ const getters = {
   userpage: state => state.userpage,
   teampage: state => state.teampage,
   requests: state => state.requests,
+  requestsForTeam: state => state.requestsForTeam,
   isTeamCaptain: state => {
     return state.dashboard.userInfo.teamCaptain !== null &&
       state.dashboard.userInfo.id === state.dashboard.userInfo.teamCaptain
@@ -85,6 +86,12 @@ const actions = {
     commit(types.LOADING_MEMBERSHIP_REQUESTS)
     api.getTeamMembershipRequests().then((response) => {
       commit(types.SUCCESS_LOAD_MEMBERSHIP_REQUESTS, response.data)
+    })
+  },
+  getTeamMembershipRequestsForTeam({commit}) {
+    commit(types.LOADING_MEMBERSHIP_REQUESTS_FOR_TEAM)
+    api.getTeamMembershipRequestsForTeam().then((response) => {
+      commit(types.SUCCESS_LOAD_MEMBERSHIP_REQUESTS_FOR_TEAM, response.data)
     })
   }
 }
