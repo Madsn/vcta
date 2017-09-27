@@ -26,6 +26,10 @@ const state = {
   requests: {
     loading: true,
     list: []
+  },
+  requestsForTeam: {
+    loading: true,
+    list: []
   }
 }
 
@@ -84,7 +88,7 @@ const actions = {
   },
   getTeamMembershipRequests({commit}) {
     commit(types.LOADING_MEMBERSHIP_REQUESTS)
-    api.getTeamMembershipRequests().then((response) => {
+    api.getTeamMembershipRequestsForCurrentUser().then((response) => {
       commit(types.SUCCESS_LOAD_MEMBERSHIP_REQUESTS, response.data)
     })
   },
@@ -162,6 +166,13 @@ const mutations = {
   [types.SUCCESS_LOAD_MEMBERSHIP_REQUESTS](state, data) {
     state.requests.loading = false
     state.requests.list = data
+  },
+  [types.LOADING_MEMBERSHIP_REQUESTS_FOR_TEAM](state) {
+    state.requestsForTeam.loading = true
+  },
+  [types.SUCCESS_LOAD_MEMBERSHIP_REQUESTS_FOR_TEAM](state, data) {
+    state.requestsForTeam.loading = false
+    state.requestsForTeam.list = data
   }
 }
 

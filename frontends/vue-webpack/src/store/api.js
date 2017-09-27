@@ -59,4 +59,4 @@ export function getTeamMembershipRequestsForCurrentUser() {
 
 export function getTeamMembershipRequestsForTeam(teamId) {
   return axios.get(`custom/membershiprequests/team/${teamId}`)
-})
+}

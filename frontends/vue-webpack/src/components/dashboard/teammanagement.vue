@@ -1,24 +1,22 @@
 <template>
   <div v-if="isTeamCaptain">
-    <teamrequests header="Received membership requests" :requests="requests"></teamrequests>
+    <teamrequestsForTeam></teamrequestsForTeam>
   </div>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
-  import teamrequests from './teamrequests.vue'
+  import teamrequestsForTeam from './teamrequestsForTeam.vue'
 
   export default {
     name: 'teammanagement',
     computed: {
       ...mapGetters({
-        isTeamCaptain: 'isTeamCaptain',
-        // TODO - replace with requests for the team, not the user
-        requestsForTeam: 'requestsForTeam'
+        isTeamCaptain: 'isTeamCaptain'
       })
     },
     components: {
-      teamrequests
+      teamrequestsForTeam
     }
   }
 </script>

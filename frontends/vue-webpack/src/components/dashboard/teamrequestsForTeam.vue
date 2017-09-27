@@ -1,6 +1,6 @@
 <template>
-  <b-card header="Sent team membership requests">
-    <table class="table table-striped" v-if="requests.list && requests.list.length > 0">
+  <b-card header="Requests for team membership received">
+    <table class="table table-striped" v-if="requestsForTeam.list && requestsForTeam.list.length > 0">
       <thead>
       <tr>
         <th>Team</th>
@@ -8,11 +8,11 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(request, index) in requests.list" v-bind:key="request.id">
+      <tr v-for="(request, index) in requestsForTeam.list" v-bind:key="request.id">
         <td>
           <router-link :to="{name: 'teamdetails', params: {id: request.team}}">{{request.teamName}}</router-link>
         </td>
-        <td>{{ request.createdAt | moment('HH:mm DD MMM YYYY') }}</td>
+        <td>{{request.createdAt | moment('HH:mm DD MMM YYYY') }}</td>
       </tr>
       </tbody>
     </table>
@@ -24,10 +24,10 @@
   import {mapGetters} from 'vuex'
 
   export default {
-    name: 'teamrequests',
+    name: 'teamrequestsforteam',
     computed: {
       ...mapGetters({
-        requests: 'requests'
+        requestsForTeam: 'requestsForTeam'
       })
     }
   }
