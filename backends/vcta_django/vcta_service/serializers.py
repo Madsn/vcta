@@ -119,3 +119,4 @@ class TeamRequestSerializer(serializers.Serializer):
     createdAt = serializers.DateTimeField(source="created_at")
     teamName = serializers.CharField(source="team__name")
     senderUsername = serializers.CharField(source="sender__username")
+    status = serializers.CharField()

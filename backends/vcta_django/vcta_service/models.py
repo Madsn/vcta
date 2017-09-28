@@ -84,6 +84,7 @@ class TeamJoinRequest(models.Model):
     team = models.ForeignKey(Team, related_name="membership_requests")
     sender = models.ForeignKey(User, related_name="team_requests")
     created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(blank=False, null=False, default="PENDING", max_length=10)
 
 
 def validate_only_one_instance(obj):
