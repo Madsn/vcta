@@ -1,7 +1,7 @@
 from django.db.models.functions import Cast
 from django.http import HttpResponseForbidden, HttpResponseNotFound
 from drf_multiple_model.views import MultipleModelAPIView
-from rest_framework import permissions, generics, exceptions, status
+from rest_framework import permissions, generics, exceptions, status, views
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
@@ -84,18 +84,14 @@ class TeamRequestsForTeam(generics.ListAPIView):
         return super(TeamRequestsForTeam, self).get(request, *args, **kwargs)
 
 
-class AcceptTeamRequest(generics.UpdateAPIView):
+class AcceptTeamRequest(views.APIView):
     """
     Captain accepts a users request to join a team
     """
     permissions_classes = (permissions.IsAuthenticated,)
-    serializer_class = TeamRequestSerializer
-    queryset = TeamJoinRequest.objects.all()
 
     def patch(self, request, *args, **kwargs):
         pk = kwargs["pk"]
-        self.queryset = TeamJoinRequest.objects.filter(team=pk) \
-            .values("id", "team", "sender", "created_at", "team__name", "sender__username", "status")
         if not hasattr(request.user, "team") or request.user.team is None:
             return HttpResponseForbidden("Must be authenticated and member of a team")
         current_user_team = request.user.team
@@ -117,8 +113,9 @@ class AcceptTeamRequest(generics.UpdateAPIView):
         join_request.status = "ACCEPTED"
         join_request.save()
 
-        # TODO - not working. Is extending UpdateAPIView the proper way to implement this?
-        serializer = TeamRequestSerializer(join_request)
+        queryset = TeamJoinRequest.objects.filter(pk=pk).values("id", "team", "sender", "created_at",
+                                                                "team__name", "sender__username", "status").first()
+        serializer = TeamRequestSerializer(queryset)
         return Response(serializer.data)
 
 
